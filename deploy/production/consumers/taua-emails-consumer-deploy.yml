@@ -48,7 +48,7 @@ spec:
             secretKeyRef:
               key: MANDRILL_API_KEY
               name: integrations-secret
-        image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer:v2
+        image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer:v3
         imagePullPolicy: Always
         livenessProbe:
           exec:
