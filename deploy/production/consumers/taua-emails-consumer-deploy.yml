@@ -60,7 +60,7 @@ spec:
             command:
             - sh
             - -c
-            - '[ -n "$(find /tmp/integration-volux-logs/*log* -mmin -30)" ] || exit
+            - '[ -n "$(find /tmp/emails-core-logs/*log* -mmin -30)" ] || exit
               1'
         name: travel-taua-emails-consumer
         ports:
