@@ -1,0 +1,8 @@
+FROM openjdk:17-jdk-alpine
+
+ENV TZ=America/Fortaleza
+USER root
+RUN apk update && apk add tzdata
+ENTRYPOINT echo "Server datetime is: $(date +'%d/%m/%Y %H:%m:%S')"
+
+COPY /target/TravelEmailsCore.jar /TravelEmailsCore.jar
