@@ -107,7 +107,7 @@ public class MandrillService extends AbstractPlayerService implements IPlayerSer
                 String id = hotel.getValue().stream().findFirst().orElse("");
                 Integer hotelCode = Integer.parseInt(String.valueOf(hotel.getKey()));
                 LogEmail logEmail = logEmailRepository.findByMandrillId(hotelCode, id).stream().findFirst().get();
-                try {ß
+                try {
                     MandrillMessageInfo info = null;
                     try {
                         info = mandrillApi.messages().info(id);
