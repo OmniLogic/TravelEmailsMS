@@ -8,24 +8,11 @@ azure:
 
 spring:
     rabbitmq:
-        host: rmq-qa.aks-internal.io
+        host: rmq-pro-taua.aks-internal.io
         port: 5672
         virtual-host: /taua
         username: taua-user
-        password: zvXaE3A43y8zc7jb
-    mail:
-        default-encoding: UTF-8
-        host: smtp.mandrillapp.com
-        password: Vmn_hcxppJrqjFlbvfgWiQ
-        port: 587
-    properties:
-        mail:
-            smtp:
-                auth: true
-                enable: true
-        protocol: smtp
-        test-connection: false
-        username: techadmin@omnilogic.com.br
+        password: ${RABBITMQ_TAUA_PASSWORD}
 
 mandrill:
     key: ${MANDRILL_API_KEY}
@@ -42,6 +29,12 @@ spring:
     config:
         activate:
             on-profile: dev
+    rabbitmq:
+        host: rmq-qa.aks-internal.io
+        port: 5672
+        virtual-host: /taua
+        username: taua-user
+        password: ${RABBITMQ_TAUA_PASSWORD}
 
 azure:
     cosmos:
