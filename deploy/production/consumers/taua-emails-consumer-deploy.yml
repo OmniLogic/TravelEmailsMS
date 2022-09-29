@@ -2,8 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    budy/pipeline: https://ci.omnilogic.com.br/omnilogic/integrationvoluxapi/pipelines/pipeline/480
-    git.repo: https://github.com/OmniLogic/IntegrationVoluxAPI
+    budy/pipeline: https://ci.omnilogic.com.br/omnilogic/travelemailscore/pipelines/pipeline/640
+    git.repo: https://github.com/OmniLogic/TravelEmailsCore
   name: travel-taua-emails-consumer
   namespace: integrations
 spec:
@@ -48,7 +48,7 @@ spec:
             secretKeyRef:
               key: MANDRILL_API_KEY
               name: integrations-secret
-        image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer:v0
+        image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer:v1
         imagePullPolicy: Always
         livenessProbe:
           exec:
