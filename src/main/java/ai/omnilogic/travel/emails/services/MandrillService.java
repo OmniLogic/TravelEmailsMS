@@ -7,12 +7,10 @@ import ai.omnilogic.travel.emails.models.Message;
 import ai.omnilogic.travel.emails.models.MessageStatus;
 import ai.omnilogic.travel.emails.models.log.LogEmail;
 import ai.omnilogic.travel.emails.models.log.Mail;
-import ai.omnilogic.travel.emails.models.log.ReservationEmailsHistory;
 import ai.omnilogic.travel.emails.repositories.LogEmailRepository;
 import ai.omnilogic.travel.emails.utils.Utils;
 import br.com.omnilogic.javautils.utils.Serializer;
 import com.bugsnag.Bugsnag;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.microtripit.mandrillapp.lutung.MandrillApi;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage;
@@ -109,7 +107,7 @@ public class MandrillService extends AbstractPlayerService implements IPlayerSer
                 String id = hotel.getValue().stream().findFirst().orElse("");
                 Integer hotelCode = Integer.parseInt(String.valueOf(hotel.getKey()));
                 LogEmail logEmail = logEmailRepository.findByMandrillId(hotelCode, id).stream().findFirst().get();
-                try {
+                try {ß
                     MandrillMessageInfo info = null;
                     try {
                         info = mandrillApi.messages().info(id);
