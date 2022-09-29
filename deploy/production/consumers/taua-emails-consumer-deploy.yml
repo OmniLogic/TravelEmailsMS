@@ -48,6 +48,11 @@ spec:
             secretKeyRef:
               key: MANDRILL_API_KEY
               name: integrations-secret
+        - name: RABBITMQ_TAUA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: integrations-secret
+                  key: RABBITMQ_TAUA_PASSWORD
         image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer:v3
         imagePullPolicy: Always
         livenessProbe:
