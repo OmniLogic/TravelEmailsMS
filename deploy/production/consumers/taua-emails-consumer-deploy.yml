@@ -51,9 +51,9 @@ spec:
         - name: RABBITMQ_TAUA_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: integrations-secret
               key: RABBITMQ_TAUA_PASSWORD
-        image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer:v3
+              name: integrations-secret
+        image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer:v4
         imagePullPolicy: Always
         livenessProbe:
           exec:
