@@ -12,11 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import java.io.IOException;
 import java.util.*;
 
+@Service
 public class SendingEmailServiceImpl implements SendingEmailService{
 
     private static Logger log = LoggerFactory.getLogger(SendingEmailServiceImpl.class);

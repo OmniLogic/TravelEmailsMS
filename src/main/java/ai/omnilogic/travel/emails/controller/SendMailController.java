@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("sendmail")
 public class SendMailController {
 
-    private SendingEmailReservationService sendingEmailReservationService;
+    private final SendingEmailReservationService sendingEmailReservationService;
+
+    public SendMailController(SendingEmailReservationService sendingEmailReservationService) {
+        this.sendingEmailReservationService = sendingEmailReservationService;
+    }
 
 
     @PostMapping("/request_reservation")

@@ -15,7 +15,9 @@ import ai.omnilogic.travel.emails.services.sendmail.SendingEmailService;
 import ai.omnilogic.travel.emails.utils.Utils;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SendingEmailReservationServiceImpl implements SendingEmailReservationService {
 
     @Value("${taua.email.from}")
@@ -84,7 +86,7 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
         email.setHotelCode(reservation.getHotelCode());
         email.setReserveId(reservation.getReserveId());
         email.setTo(reservation.getCustomer().getEmail());
-        email.setName(reservation.getCustomer().getName());
+        email.setName(reservation.getCustomer().getFullName());
         email.setSubject(title);
         String number = "(31) 3236-1900";
 
