@@ -15,6 +15,7 @@ import ai.omnilogic.travel.emails.services.sendmail.SendingEmailService;
 import ai.omnilogic.travel.emails.utils.Utils;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.MessagingException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -60,7 +61,7 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
     }
 
     @Override
-    public void sendRequesteReservation(ReservationDTO reservation) {
+    public void sendRequestReservation(ReservationDTO reservation) {
         Mail email = createDataToSendByReservation(reservation, "Pedido Recebido!", false);
         try {
             if (Objects.equals(reservation.getHotelCode(), HotelType.ARAXA.getCode())) {
@@ -68,16 +69,23 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
             }
             else
                 sendingEmailService.sendMail(email, "emailOrderReserve.ftl");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (TemplateException e) {
+        } catch (IOException | TemplateException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void reSendConfirmReserveMail(ReservationDTO reservation, String login) {
-
+    public void sendConfirmReserveMail(ReservationDTO reservation) {
+        Mail email = createDataToSendByReservation(reservation, String.format("Sua reserva %s foi confirmada!", reservation.getReserveId()), true);
+        email.getModel().put("created_by", reservation.getEmailSeller());
+        try {
+            if (Objects.equals(reservation.getHotelCode(), HotelType.ARAXA.getCode()))
+                sendingEmailService.sendMail(email, "emailOrderConfirmAraxa.ftl");
+            else
+                sendingEmailService.sendMail(email, "emailOrderConfirm.ftl");
+        } catch (MessagingException | IOException | TemplateException e) {
+            e.printStackTrace();
+        }
     }
 
     private Mail createDataToSendByReservation(ReservationDTO reservation, String title, boolean paid) {

@@ -2,10 +2,11 @@ package ai.omnilogic.travel.emails.controller;
 
 import ai.omnilogic.travel.emails.dto.reservation.ReservationDTO;
 import ai.omnilogic.travel.emails.services.reservation.SendingEmailReservationService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.security.RolesAllowed;
 
 
 @RestController
@@ -21,6 +22,18 @@ public class SendMailController {
 
     @PostMapping("/request_reservation")
     public void requestReservation(@RequestBody ReservationDTO reservation) {
-        sendingEmailReservationService.sendRequesteReservation(reservation);
+        sendingEmailReservationService.sendRequestReservation(reservation);
+    }
+
+    @PostMapping("/confirm_reserve")
+    public ResponseEntity saleMailByReserve(@RequestBody ReservationDTO reservation){
+
+        try {
+            sendingEmailReservationService.sendConfirmReserveMail(reservation);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(ex.getMessage()) ;
+        }
+
+        return ResponseEntity.ok().build();
     }
 }
