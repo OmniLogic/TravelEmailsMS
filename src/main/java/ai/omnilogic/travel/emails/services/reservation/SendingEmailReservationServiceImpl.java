@@ -7,11 +7,12 @@ import java.util.stream.Collectors;
 
 import ai.omnilogic.travel.emails.dto.additional_service.AdditionalServiceDTO;
 import ai.omnilogic.travel.emails.dto.tariff.PricingTariffRuleDTO;
-import ai.omnilogic.travel.emails.models.Mail;
 import ai.omnilogic.travel.emails.models.hotel.HotelType;
 import ai.omnilogic.travel.emails.dto.reservation.ItemReservationDTO;
 import ai.omnilogic.travel.emails.dto.reservation.ReservationDTO;
+import ai.omnilogic.travel.emails.models.mail.Mail;
 import ai.omnilogic.travel.emails.services.sendmail.SendingEmailService;
+import ai.omnilogic.travel.emails.services.sendmail.SendingEmailServiceImpl;
 import ai.omnilogic.travel.emails.utils.Utils;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,11 +22,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SendingEmailReservationServiceImpl implements SendingEmailReservationService {
 
-    @Value("${taua.email.from}")
-    private String TAUA_EMAIL_FROM;
 
-    @Value("${taua.email.from-araxa}")
-    private String TAUA_EMAIL_FROM_ARAXA;
 
     @Value("${taua.email.request-cancel}")
     private String TAUA_EMAIL_REQUEST_CANCEL;
@@ -33,26 +30,6 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
     @Value("${taua.email.confirm-reservation}")
     private  String TAUA_EMAIL_CONFIRM_RESERVATION;
 
-    @Value("${taua.email.replay-to}")
-    private String TAUA_EMAIL_REPLAYTO;
-
-    @Value("${taua.email.replay-to-araxa}")
-    private String TAUA_EMAIL_REPLAYTO_ARAXA;
-
-    @Value("${taua.url.site}")
-    private String URL_SITE_TAUA_RESERVES;
-
-    @Value("${taua.url.site-araxa}")
-    private String URL_SITE_ARAXA_RESERVES;
-
-    @Value("${taua.url.search}")
-    private String URL_SEARCH_TAUA_RESERVES;
-
-    @Value("${taua.url.search-araxa}")
-    private String URL_SEARCH_ARAXA_RESERVES;
-
-    @Value("${taua.url.telesale}")
-    private String URL_TELESALE_TAUA;
 
     private final SendingEmailService sendingEmailService;
 
@@ -90,7 +67,7 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
 
     private Mail createDataToSendByReservation(ReservationDTO reservation, String title, boolean paid) {
         Mail email = new Mail();
-        defineAraxaOrNo(email, reservation.getHotelCode());
+        SendingEmailServiceImpl.defineAraxaOrNo(email, reservation.getHotelCode());
         email.setHotelCode(reservation.getHotelCode());
         email.setReserveId(reservation.getReserveId());
         email.setTo(reservation.getCustomer().getEmail());
@@ -213,13 +190,5 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
         return email;
     }
 
-    private void defineAraxaOrNo(Mail mail, Integer hotelCode) {
-        if (hotelCode.equals(HotelType.ARAXA.getCode())) {
-            mail.setFrom(TAUA_EMAIL_FROM_ARAXA);
-            mail.setReplayTo(TAUA_EMAIL_REPLAYTO_ARAXA);
-        } else {
-            mail.setFrom(TAUA_EMAIL_FROM);
-            mail.setReplayTo(TAUA_EMAIL_REPLAYTO);
-        }
-    }
+
 }

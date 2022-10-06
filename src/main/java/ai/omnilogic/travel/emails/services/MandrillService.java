@@ -6,7 +6,7 @@ import ai.omnilogic.travel.emails.exceptions.SendEmailException;
 import ai.omnilogic.travel.emails.models.Message;
 import ai.omnilogic.travel.emails.models.MessageStatus;
 import ai.omnilogic.travel.emails.models.log.LogEmail;
-import ai.omnilogic.travel.emails.models.log.Mail;
+import ai.omnilogic.travel.emails.models.mail.Mail;
 import ai.omnilogic.travel.emails.repositories.LogEmailRepository;
 import ai.omnilogic.travel.emails.utils.Utils;
 import br.com.omnilogic.javautils.utils.Serializer;

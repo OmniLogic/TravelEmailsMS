@@ -15,6 +15,9 @@ public class CustomerDTO {
     @JsonProperty("email")
     private String email;
 
+    @JsonProperty("document")
+    private String document;
+
     private String firstName;
 
     private String lastName;

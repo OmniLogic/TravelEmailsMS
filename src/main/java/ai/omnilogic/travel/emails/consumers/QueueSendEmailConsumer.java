@@ -2,7 +2,7 @@ package ai.omnilogic.travel.emails.consumers;
 
 import ai.omnilogic.travel.emails.exceptions.SendEmailException;
 import ai.omnilogic.travel.emails.models.MessageStatus;
-import ai.omnilogic.travel.emails.models.log.Mail;
+import ai.omnilogic.travel.emails.models.mail.Mail;
 import ai.omnilogic.travel.emails.services.MandrillService;
 import br.com.omnilogic.javautils.utils.Serializer;
 import com.fasterxml.jackson.core.JsonProcessingException;

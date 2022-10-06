@@ -1,8 +1,8 @@
 package ai.omnilogic.travel.emails.services.sendmail;
 
 import ai.omnilogic.travel.emails.enums.ExchangeType;
-import ai.omnilogic.travel.emails.models.Mail;
 import ai.omnilogic.travel.emails.models.hotel.HotelType;
+import ai.omnilogic.travel.emails.models.mail.Mail;
 import br.com.omnilogic.javautils.utils.Serializer;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
@@ -24,6 +25,18 @@ public class SendingEmailServiceImpl implements SendingEmailService{
     private static Logger log = LoggerFactory.getLogger(SendingEmailServiceImpl.class);
 
     private final AmqpTemplate queueSender;
+
+    @Value("${taua.email.from}")
+    private static String TAUA_EMAIL_FROM;
+
+    @Value("${taua.email.from-araxa}")
+    private static String TAUA_EMAIL_FROM_ARAXA;
+
+    @Value("${taua.email.replay-to}")
+    private static String TAUA_EMAIL_REPLAYTO;
+
+    @Value("${taua.email.replay-to-araxa}")
+    private static String TAUA_EMAIL_REPLAYTO_ARAXA;
 
     @Autowired
     @Qualifier("emailConfigBean")
@@ -87,6 +100,16 @@ public class SendingEmailServiceImpl implements SendingEmailService{
                 return ExchangeType.AMQ_SEND_ALEGRO.getRouting();
             default:
                 return ExchangeType.AMQ_SEND_GENERIC.getRouting();
+        }
+    }
+
+    public static void defineAraxaOrNo(Mail mail, Integer hotelCode) {
+        if (hotelCode.equals(HotelType.ARAXA.getCode())) {
+            mail.setFrom(TAUA_EMAIL_FROM_ARAXA);
+            mail.setReplayTo(TAUA_EMAIL_REPLAYTO_ARAXA);
+        } else {
+            mail.setFrom(TAUA_EMAIL_FROM);
+            mail.setReplayTo(TAUA_EMAIL_REPLAYTO);
         }
     }
 }

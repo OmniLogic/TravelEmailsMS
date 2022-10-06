@@ -1,5 +1,6 @@
 package ai.omnilogic.travel.emails.models.log;
 
+import ai.omnilogic.travel.emails.models.mail.Mail;
 import ai.omnilogic.travel.emails.utils.Utils;
 import com.azure.spring.data.cosmos.core.mapping.Container;
 import com.azure.spring.data.cosmos.core.mapping.GeneratedValue;

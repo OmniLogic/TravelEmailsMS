@@ -2,7 +2,7 @@ package ai.omnilogic.travel.emails.services;
 
 import ai.omnilogic.travel.emails.exceptions.SendEmailException;
 import ai.omnilogic.travel.emails.models.MessageStatus;
-import ai.omnilogic.travel.emails.models.log.Mail;
+import ai.omnilogic.travel.emails.models.mail.Mail;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

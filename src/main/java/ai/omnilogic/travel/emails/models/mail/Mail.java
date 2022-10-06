@@ -1,4 +1,4 @@
-package ai.omnilogic.travel.emails.models.log;
+package ai.omnilogic.travel.emails.models.mail;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
