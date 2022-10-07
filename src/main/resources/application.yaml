@@ -76,6 +76,11 @@ azure:
 server:
     port: 8090
 
+taua:
+    email:
+        request-cancel: diego.cerqueira@omnilogic.ai
+        confirm-reservation: diego.cerqueira@omnilogic.ai
+
 keycloak:
     auth-server-url: https://auth.dev.omnilogic.com.br/
     realm: travel-taua-sandbox
