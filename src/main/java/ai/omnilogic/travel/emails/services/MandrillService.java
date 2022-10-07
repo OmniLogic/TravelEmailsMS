@@ -69,11 +69,13 @@ public class MandrillService extends AbstractPlayerService implements IPlayerSer
         try{
             result = deliverMail(message);
             List<String> mandrillIds = result.stream().map(i -> i.getId()).collect(Collectors.toList());
+            Boolean isSent = result.stream().map(item -> item.getStatus()).findFirst().orElse(StatusEmail.FAILED).equals(StatusEmail.SENT);
             logEmailService.sent(mailModel,
-                    false,
+                    isSent,
                     result.stream().map(MessageStatus::getStatus).findAny().orElse(StatusEmail.OTHERS).getName(),
                     mandrillIds);
-            sendQueueEmailSyncInfo(THREE_MINUTES, Map.of(mailModel.getHotelCode(), mandrillIds), getRoutingByHotel(mailModel));
+            if (!isSent)
+                sendQueueEmailSyncInfo(THREE_MINUTES, Map.of(mailModel.getHotelCode(), mandrillIds), getRoutingByHotel(mailModel));
         } catch (SendEmailException ex) {
             log.error(String.format("Error send email >> %s", ex.getMessage()));
             throw ex;
@@ -179,7 +181,7 @@ public class MandrillService extends AbstractPlayerService implements IPlayerSer
         try {
             MandrillMessage mandrillMessage = getMandrillMessage(message);
 
-            result = mandrillApi.messages().send(mandrillMessage, true, "Main Pool", sendAt);
+            result = mandrillApi.messages().send(mandrillMessage, false, "Main Pool", sendAt);
 
             if(result == null || result.length == 0 || !Optional.ofNullable(result[0].getStatus()).isPresent()){
                 throw new SendEmailException(String.format("ERROR SEND E-MAILS %s", message));
