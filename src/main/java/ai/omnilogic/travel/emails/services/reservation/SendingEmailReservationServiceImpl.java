@@ -65,6 +65,34 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
         }
     }
 
+    /*
+    @Deprecated
+    @Override
+    public void sendSaleConfirmMail(Mail mailModel) {
+        try {
+            if (Objects.equals(mailModel.getHotelCode(), HotelType.ARAXA.getCode())) {
+                sendingEmailService.sendMail(mailModel, "emailOrderConfirmAraxa.ftl");
+            }
+            else
+                sendingEmailService.sendMail(mailModel, "emailOrderConfirm.ftl");
+        } catch (IOException | TemplateException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Deprecated
+    @Override
+    public void sendSaleMail(Mail mailModel) {
+        try {
+            if (mailModel.getHotelCode() != null && Objects.equals(mailModel.getHotelCode(), HotelType.ARAXA.getCode()))
+                sendingEmailService.sendMail(mailModel, "emailOrderReserveAraxa.ftl");
+            else
+                sendingEmailService.sendMail(mailModel, "emailOrderReserve.ftl");
+        } catch (IOException | TemplateException e) {
+            throw new RuntimeException(e);
+        }
+    }*/
+
     private Mail createDataToSendByReservation(ReservationDTO reservation, String title, boolean paid) {
         Mail email = new Mail();
         SendingEmailServiceImpl.defineAraxaOrNo(email, reservation.getHotelCode());
