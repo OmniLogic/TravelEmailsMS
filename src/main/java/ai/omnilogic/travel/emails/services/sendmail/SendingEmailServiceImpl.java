@@ -120,7 +120,7 @@ public class SendingEmailServiceImpl implements SendingEmailService{
     }
 
     public static void defineAraxaOrNo(Mail mail, Integer hotelCode) {
-        if (hotelCode.equals(HotelType.ARAXA.getCode())) {
+        if (hotelCode != null && hotelCode.equals(HotelType.ARAXA.getCode())) {
             mail.setFrom(TAUA_EMAIL_FROM_ARAXA);
             mail.setReplayTo(TAUA_EMAIL_REPLAYTO_ARAXA);
         } else {
