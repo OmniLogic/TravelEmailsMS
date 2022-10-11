@@ -68,9 +68,9 @@ public class SendingEmailTelesaleServiceImpl implements SendingEmailTelesaleServ
 
         try {
             if (Objects.equals(telesale.getHotelCode(), HotelType.ARAXA.getCode()))
-                sendingEmailService.sendMail(mailModel, "emailBudgetAraxa.ftl");
+                sendingEmailService.sendMail(mailModel, "mailPreSaleAraxa.ftl");
             else
-                sendingEmailService.sendMail(mailModel, "emailBudget.ftl");
+                sendingEmailService.sendMail(mailModel, "mailPreSale.ftl");
         } catch (IOException | TemplateException e) {
             throw new RuntimeException(e);
         }

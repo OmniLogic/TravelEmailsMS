@@ -59,7 +59,7 @@ public class SendingEmailServiceImpl implements SendingEmailService{
         mandrillMsg.put("to", mailModel.getTo());
         mandrillMsg.put("cc", mailModel.getCc());
         mandrillMsg.put("bcc", mailModel.getBcc());
-        mandrillMsg.put("from", String.format("%s <%s>", mailModel.getHotelCode().equals(HotelType.ARAXA.getCode()) ? "Grande Hotel de Araxá" : "Tauá Resorts", mailModel.getFrom()));
+        mandrillMsg.put("from", String.format("%s <%s>", mailModel.getHotelCode() != null && mailModel.getHotelCode().equals(HotelType.ARAXA.getCode()) ? "Grande Hotel de Araxá" : "Tauá Resorts", mailModel.getFrom()));
         mandrillMsg.put("encoding", "UTF-8");
         mandrillMsg.put("alt_encoding", "UTF-8");
         mandrillMsg.put("content_type", "text/html");
@@ -101,6 +101,22 @@ public class SendingEmailServiceImpl implements SendingEmailService{
             default:
                 return ExchangeType.AMQ_SEND_GENERIC.getRouting();
         }
+    }
+
+    @Override
+    public void sendGenericMail(Mail mailModel) throws IOException, TemplateException {
+
+        Map model = new HashMap();
+        defineAraxaOrNo(mailModel, mailModel.getHotelCode());
+        model.put("name", mailModel.getName());
+        model.put("subject", mailModel.getSubject());
+        model.put("content", mailModel.getContent());
+        mailModel.setModel( model );
+
+        if (mailModel.getHotelCode() != null && Objects.equals(mailModel.getHotelCode(), HotelType.ARAXA.getCode()))
+            sendMail(mailModel, "emailGenericAraxa.ftl");
+        else
+            sendMail(mailModel, "emailGeneric.ftl");
     }
 
     public static void defineAraxaOrNo(Mail mail, Integer hotelCode) {

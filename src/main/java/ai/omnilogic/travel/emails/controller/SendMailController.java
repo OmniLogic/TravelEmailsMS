@@ -1,17 +1,14 @@
 package ai.omnilogic.travel.emails.controller;
 
+import ai.omnilogic.travel.emails.dto.UserNotificationDTO;
 import ai.omnilogic.travel.emails.dto.reservation.ReservationDTO;
 import ai.omnilogic.travel.emails.dto.telesale.TelesaleDTO;
-import ai.omnilogic.travel.emails.models.mail.Mail;
+import ai.omnilogic.travel.emails.services.error.SendingEmailErrorService;
 import ai.omnilogic.travel.emails.services.reservation.SendingEmailReservationService;
 import ai.omnilogic.travel.emails.services.telesale.SendingEmailTelesaleService;
-import freemarker.template.TemplateException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.security.RolesAllowed;
-import java.io.IOException;
 
 
 @RestController
@@ -21,9 +18,12 @@ public class SendMailController {
     private final SendingEmailReservationService sendingEmailReservationService;
     private final SendingEmailTelesaleService sendingEmailTelesaleService;
 
-    public SendMailController(SendingEmailReservationService sendingEmailReservationService, SendingEmailTelesaleService sendingEmailTelesaleService) {
+    private final SendingEmailErrorService sendingEmailErrorService;
+
+    public SendMailController(SendingEmailReservationService sendingEmailReservationService, SendingEmailTelesaleService sendingEmailTelesaleService, SendingEmailErrorService sendingEmailErrorService) {
         this.sendingEmailReservationService = sendingEmailReservationService;
         this.sendingEmailTelesaleService = sendingEmailTelesaleService;
+        this.sendingEmailErrorService = sendingEmailErrorService;
     }
 
 
@@ -93,4 +93,35 @@ public class SendMailController {
         }
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/error_payment_credit_card")
+    public ResponseEntity sendErrorPaymentCreditCardMail(@RequestBody ReservationDTO reservation) {
+        try {
+            sendingEmailErrorService.sendErrorPaymentCreditCardMail(reservation);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/error_payment_pix")
+    public ResponseEntity sendErrorPaymentPixMail(@RequestBody ReservationDTO reservation) {
+        try {
+            sendingEmailErrorService.sendErrorPaymentPixMail(reservation);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/notification_error")
+    public ResponseEntity sendNotificationErrorMail(@RequestBody UserNotificationDTO userNotificationDTO) {
+        try {
+            sendingEmailErrorService.sendNotificationErrorMail(userNotificationDTO);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+        return ResponseEntity.ok().build();
+    }
+
 }
