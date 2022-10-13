@@ -127,7 +127,7 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
 
         if (reservation.getItems() != null && reservation.getItems().size() > 0
                 && reservation.getItems().get(0).getTariffId() != null) {
-            List<PricingTariffRuleDTO> tariffs = reservation.getItems().stream().map(itemOrder -> (itemOrder.getTariff())).collect(Collectors.toList());
+            List<PricingTariffRuleDTO> tariffs = reservation.getItems().stream().map(ItemReservationDTO::getTariff).toList();
 
             tariffs.stream().forEach(tariff->{
                 Map<String, Object> tariffPolicies = new HashMap<>();

@@ -6,6 +6,7 @@ import ai.omnilogic.travel.emails.dto.telesale.TelesaleDTO;
 import ai.omnilogic.travel.emails.models.mail.Mail;
 import ai.omnilogic.travel.emails.services.error.SendingEmailErrorService;
 import ai.omnilogic.travel.emails.services.reservation.SendingEmailReservationService;
+import ai.omnilogic.travel.emails.services.reservation.cancel.SendingEmailCancelReservationService;
 import ai.omnilogic.travel.emails.services.sendmail.SendingEmailService;
 import ai.omnilogic.travel.emails.services.telesale.SendingEmailTelesaleService;
 import org.springframework.http.MediaType;
@@ -25,11 +26,14 @@ public class SendMailController {
 
     private final SendingEmailService sendingEmailService;
 
-    public SendMailController(SendingEmailReservationService sendingEmailReservationService, SendingEmailTelesaleService sendingEmailTelesaleService, SendingEmailErrorService sendingEmailErrorService, SendingEmailService sendingEmailService) {
+    private final SendingEmailCancelReservationService sendingEmailCancelReservationService;
+
+    public SendMailController(SendingEmailReservationService sendingEmailReservationService, SendingEmailTelesaleService sendingEmailTelesaleService, SendingEmailErrorService sendingEmailErrorService, SendingEmailService sendingEmailService, SendingEmailCancelReservationService sendingEmailCancelReservationService) {
         this.sendingEmailReservationService = sendingEmailReservationService;
         this.sendingEmailTelesaleService = sendingEmailTelesaleService;
         this.sendingEmailErrorService = sendingEmailErrorService;
         this.sendingEmailService = sendingEmailService;
+        this.sendingEmailCancelReservationService = sendingEmailCancelReservationService;
     }
 
 
@@ -139,6 +143,26 @@ public class SendMailController {
             return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(ex.getMessage()) ;
         }
 
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/cancellation_request_pix")
+    public ResponseEntity sendCancellationRequestPixMail(@RequestBody ReservationDTO reservationDTO) {
+        try {
+            sendingEmailCancelReservationService.sendReserveCancellationRequest(reservationDTO);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/cancellation_request_taua")
+    public ResponseEntity sendCancellationRequestTauaMail(@RequestBody ReservationDTO reservationDTO) {
+        try {
+            sendingEmailCancelReservationService.sendReserveCancellationRequestTaua(reservationDTO);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
         return ResponseEntity.ok().build();
     }
 

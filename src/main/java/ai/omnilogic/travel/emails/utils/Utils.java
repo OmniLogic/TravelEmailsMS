@@ -36,6 +36,10 @@ public class Utils {
         return LocalDate.parse(date, formatter);
     }
 
+    public static String currencyFormatCentsToReal(BigDecimal cents) {
+        return Utils.formatDecimal(cents.divide(new BigDecimal(100)).setScale(2));
+    }
+
     public static String formatDecimal( BigDecimal number ) {
 
         return NumberFormat.getCurrencyInstance( new Locale( "pt", "BR" ) ).format( number.doubleValue() );

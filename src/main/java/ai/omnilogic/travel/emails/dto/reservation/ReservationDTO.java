@@ -4,9 +4,11 @@ import ai.omnilogic.travel.emails.dto.additional_service.AdditionalServiceDTO;
 import ai.omnilogic.travel.emails.models.Customer.CustomerDTO;
 import ai.omnilogic.travel.emails.models.Totals;
 import ai.omnilogic.travel.emails.models.hotel.Hotel;
+import ai.omnilogic.travel.emails.models.payment.Payment;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -17,6 +19,15 @@ public class ReservationDTO {
 
     @JsonProperty("hotel")
     private Hotel hotel;
+
+    @JsonProperty("cancellation_request_date")
+    private String cancellationRequestDate;
+
+    @JsonProperty("hour_checkin_hotel")
+    private String hourCheckInHotel;
+
+    @JsonProperty("date")
+    private String date;
 
     @JsonProperty("items")
     private List<ItemReservationDTO> items;
@@ -41,6 +52,13 @@ public class ReservationDTO {
 
     @JsonProperty("item_aditional_service")
     private List<AdditionalServiceDTO> itemAditionalServices;
+
+    @JsonProperty("payments")
+    private List<Payment> payments;
+
+    public String getCancellationRequestDate() {
+        return this.cancellationRequestDate == null? LocalDateTime.now().toString() : this.cancellationRequestDate;
+    }
 
     public Integer getHotelCode() {
         return this.getHotel().getCode();
