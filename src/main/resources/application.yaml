@@ -14,7 +14,9 @@ taua:
         replay-to-araxa: reservas1.araxa@gharaxa.com.br
         name: "Tauá Resorts"
         request-cancel: ludmilla.julio@taua.com.br
+        request-cancel-araxa: giordana.silva@taua.com.br
         confirm-reservation: isabela.ferreira@taua.com.br
+        confirm-reservation-araxa: giordana.silva@taua.com.br
     url:
         site: "https://reservas.tauaresorts.com.br/"
         site-araxa: "https://www.grandehotelaraxa.com/"

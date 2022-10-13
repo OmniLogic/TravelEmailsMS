@@ -27,8 +27,14 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
     @Value("${taua.email.request-cancel}")
     private String TAUA_EMAIL_REQUEST_CANCEL;
 
+    @Value("${taua.email.request-cancel-araxa}")
+    private String TAUA_EMAIL_REQUEST_CANCEL_ARAXA;
+
     @Value("${taua.email.confirm-reservation}")
     private  String TAUA_EMAIL_CONFIRM_RESERVATION;
+
+    @Value("${taua.email.confirm-reservation-araxa}")
+    private  String TAUA_EMAIL_CONFIRM_RESERVATION_ARAXA;
 
 
     private final SendingEmailService sendingEmailService;
@@ -113,7 +119,7 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
             }
         }
         if(!Optional.ofNullable(email.getCc()).isPresent() || email.getCc().trim().isEmpty()){
-            email.setBcc(TAUA_EMAIL_CONFIRM_RESERVATION);
+            email.setBcc(reservation.getHotelCode() == 3? TAUA_EMAIL_CONFIRM_RESERVATION_ARAXA : TAUA_EMAIL_CONFIRM_RESERVATION);
         }
 
         Map<String, Object> model = new HashMap<>();
