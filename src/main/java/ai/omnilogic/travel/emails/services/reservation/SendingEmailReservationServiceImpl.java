@@ -3,7 +3,6 @@ package ai.omnilogic.travel.emails.services.reservation;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import ai.omnilogic.travel.emails.dto.additional_service.AdditionalServiceDTO;
 import ai.omnilogic.travel.emails.dto.tariff.PricingTariffRuleDTO;
@@ -60,7 +59,7 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
     @Override
     public void sendConfirmReserveMail(ReservationDTO reservation) {
         Mail email = createDataToSendByReservation(reservation, String.format("Sua reserva %s foi confirmada!", reservation.getReserveId()), true);
-        email.getModel().put("created_by", reservation.getEmailSeller());
+        email.getModel().put("created_by", reservation.getEmailCc());
         try {
             if (Objects.equals(reservation.getHotelCode(), HotelType.ARAXA.getCode()))
                 sendingEmailService.sendMail(email, "emailOrderConfirmAraxa.ftl");
@@ -111,9 +110,9 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
 
         if(Optional.ofNullable(reservation.getTeleSaleId()).isPresent() && !reservation.getTeleSaleId().trim().isEmpty()){
 
-            if(reservation.getIsTelesale() && reservation.getEmailSeller() != null
-                    && !reservation.getEmailSeller().isEmpty()){
-               email.setCc(reservation.getEmailSeller());
+            if(reservation.getIsTelesale() && reservation.getEmailCc() != null
+                    && !reservation.getEmailCc().isEmpty()){
+               email.setCc(reservation.getEmailCc());
                 if(paid)
                     number = "0800 333 1900";
             }

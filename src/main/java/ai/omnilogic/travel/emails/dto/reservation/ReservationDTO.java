@@ -42,7 +42,7 @@ public class ReservationDTO {
     private Boolean isTelesale;
 
     @JsonProperty("email_seller")
-    private String emailSeller;
+    private String emailCc;
 
     @JsonProperty("children_information")
     private String childrenInformation;

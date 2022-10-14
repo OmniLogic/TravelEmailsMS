@@ -166,4 +166,24 @@ public class SendMailController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/to_taua_cancellation_by_client")
+    public ResponseEntity sendToTauaReserveCancellationByClient(@RequestBody ReservationDTO reservationDTO) {
+        try {
+            sendingEmailCancelReservationService.sendToTauaReserveCancellationByClient(reservationDTO);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/cancel_reservation")
+    public ResponseEntity sendCancelReserveMail(@RequestBody ReservationDTO reservationDTO) {
+        try {
+            sendingEmailCancelReservationService.sendCancelReserveMail(reservationDTO);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+        return ResponseEntity.ok().build();
+    }
+
 }
