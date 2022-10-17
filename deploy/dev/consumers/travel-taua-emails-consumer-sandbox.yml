@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    budy/pipeline: https://ci.omnilogic.com.br/omnilogic/travelemailscore/pipelines/pipeline/640
+    budy/pipeline: https://ci.omnilogic.com.br/omnilogic/travelemailscore/pipelines/pipeline/643
     git.repo: https://github.com/OmniLogic/TravelEmailsCore
   name: travel-taua-emails-consumer-sandbox
   namespace: integrations
@@ -53,15 +53,14 @@ spec:
             secretKeyRef:
               key: RABBITMQ_TAUA_PASSWORD
               name: integrations-secret
-        image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer-sandbox:v4
+        image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer-sandbox:v1
         imagePullPolicy: Always
         livenessProbe:
           exec:
             command:
             - sh
             - -c
-            - '[ -n "$(find /tmp/emails-core-logs/*log* -mmin -360)" ] || exit
-              1'
+            - '[ -n "$(find /tmp/emails-core-logs/*log* -mmin -360)" ] || exit 1'
         name: travel-taua-emails-consumer-sandbox
         ports:
         - containerPort: 9102
