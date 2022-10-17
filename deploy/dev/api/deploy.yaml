@@ -1,26 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    budy/pipeline: https://ci.omnilogic.com.br/omnilogic/travelemailscore/pipelines/pipeline/640
-    git.repo: https://github.com/OmniLogic/TravelEmailsCore
-  name: travel-taua-emails-consumer-sandbox
-  namespace: integrations
+  name: travel-emails-microservice-api-hmg
+  namespace: api
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: travel-taua-emails-consumer-sandbox
+      app: travel-emails-microservice-api-hmg
   template:
     metadata:
+      annotations:
+        config.linkerd.io/skip-outbound-ports: "443"
       labels:
-        app: travel-taua-emails-consumer-sandbox
+        app: travel-emails-microservice-api-hmg
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+              - key: kubernetes.azure.com/scalesetpriority
+                operator: In
+                values:
+                - spot
+            weight: 100
       containers:
-      - command:
-        - java
-        - -jar
-        - TravelEmailsCore.jar
-        env:
+      - env:
         - name: OMNI_ENV
           value: dev
         - name: COSMOS_TAUA_KEY
@@ -53,23 +59,18 @@ spec:
             secretKeyRef:
               key: RABBITMQ_TAUA_PASSWORD
               name: integrations-secret
-        image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer-sandbox:v4
-        imagePullPolicy: Always
-        livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - '[ -n "$(find /tmp/emails-core-logs/*log* -mmin -360)" ] || exit
-              1'
-        name: travel-taua-emails-consumer-sandbox
+        image: omnilogic.azurecr.io/travel-emails-microservice-api-hmg:v344
+        name: travel-emails-microservice-api-hmg
         ports:
-        - containerPort: 9102
-          name: metrics
-          protocol: TCP
+        - containerPort: 8080
         resources:
           limits:
             memory: 1536Mi
           requests:
             cpu: 300m
             memory: 1Gi
+      tolerations:
+      - effect: NoSchedule
+        key: kubernetes.azure.com/scalesetpriority
+        operator: Equal
+        value: spot

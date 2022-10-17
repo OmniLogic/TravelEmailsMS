@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  annotations:
+  name: travel-emails-microservice-api-prometheus
+  namespace: api
+spec:
+  endpoints:
+    - interval: 30s
+      path: /metrics
+      port: metrics
+  selector:
+    matchLabels:
+      app: travel-emails-microservice-api

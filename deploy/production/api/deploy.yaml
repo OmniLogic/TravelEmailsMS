@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    budy/pipeline: https://ci.omnilogic.com.br/omnilogic/integrationvoluxapi/pipelines/pipeline/479
+    git.repo: https://github.com/OmniLogic/IntegrationVoluxAPI
+  name: travel-emails-microservice-api
+  namespace: api
+spec:
+  selector:
+    matchLabels:
+      app: travel-emails-microservice-api
+  template:
+    metadata:
+      annotations:
+        config.linkerd.io/skip-outbound-ports: "443"
+      labels:
+        app: travel-emails-microservice-api
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+              - key: kubernetes.azure.com/scalesetpriority
+                operator: In
+                values:
+                - spot
+            weight: 100
+      containers:
+      - command:
+        - java
+        - -javaagent:/elastic/apm/agent/elastic-apm-agent.jar
+        - -Delastic.apm.service_name=travel-emails-microservice-api
+        - -Delastic.apm.server_urls=http://10.0.0.103:8200
+        - -jar
+        - /opt/app.jar
+        - -b
+        - 0.0.0.0
+        env:
+          - name: OMNI_ENV
+            value: prd
+          - name: COSMOS_TAUA_KEY
+            valueFrom:
+              secretKeyRef:
+                key: COSMOS_TAUA_KEY
+                name: integrations-secret
+          - name: COSMOS_TAUA_SECONDARY_KEY
+            valueFrom:
+              secretKeyRef:
+                key: COSMOS_TAUA_SECONDARY_KEY
+                name: integrations-secret
+          - name: COSMOS_TAUA_KEY_SANDBOX
+            valueFrom:
+              secretKeyRef:
+                key: COSMOS_TAUA_KEY_SANDBOX
+                name: integrations-secret
+          - name: COSMOS_TAUA_SECONDARY_KEY_SANDBOX
+            valueFrom:
+              secretKeyRef:
+                key: COSMOS_TAUA_SECONDARY_KEY_SANDBOX
+                name: integrations-secret
+          - name: MANDRILL_API_KEY
+            valueFrom:
+              secretKeyRef:
+                key: MANDRILL_API_KEY
+                name: integrations-secret
+          - name: RABBITMQ_TAUA_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: RABBITMQ_TAUA_PASSWORD
+                name: integrations-secret
+        image: omnilogic.azurecr.io/travel-emails-microservice-api:v0
+        name: travel-emails-microservice-api
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            memory: 3Gi
+          requests:
+            cpu: 500m
+            memory: 2Gi
+        volumeMounts:
+        - mountPath: /elastic/apm/agent
+          name: elastic-apm-agent
+      initContainers:
+      - command:
+        - cp
+        - -v
+        - /usr/agent/elastic-apm-agent.jar
+        - /elastic/apm/agent
+        image: docker.elastic.co/observability/apm-agent-java:1.12.0
+        imagePullPolicy: IfNotPresent
+        name: elastic-java-agent
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /elastic/apm/agent
+          name: elastic-apm-agent
+      tolerations:
+      - effect: NoSchedule
+        key: kubernetes.azure.com/scalesetpriority
+        operator: Equal
+        value: spot
+      volumes:
+      - emptyDir: {}
+        name: elastic-apm-agent
