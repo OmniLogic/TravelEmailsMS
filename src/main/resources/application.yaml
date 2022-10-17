@@ -25,9 +25,6 @@ taua:
         search-araxa: "busca-new-araxa/"
         telesale: "telesale-new/"
 
-server:
-    port: 8090
-
 spring:
     rabbitmq:
         host: rmq-pro-taua.aks-internal.io
@@ -74,9 +71,6 @@ azure:
         queryMetricsEnabled: true
         secondaryKey: ${COSMOS_TAUA_SECONDARY_KEY_SANDBOX}
         uri: https://traveldb-taua-dev-v3.documents.azure.com:443/
-
-server:
-    port: 8090
 
 taua:
     email:
