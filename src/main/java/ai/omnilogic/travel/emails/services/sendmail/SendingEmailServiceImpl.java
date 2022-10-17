@@ -3,7 +3,10 @@ package ai.omnilogic.travel.emails.services.sendmail;
 import ai.omnilogic.travel.emails.enums.ExchangeType;
 import ai.omnilogic.travel.emails.models.hotel.HotelType;
 import ai.omnilogic.travel.emails.models.mail.Mail;
-import br.com.omnilogic.javautils.utils.Serializer;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -38,6 +41,9 @@ public class SendingEmailServiceImpl implements SendingEmailService{
     @Value("${taua.email.replay-to-araxa}")
     private static String TAUA_EMAIL_REPLAYTO_ARAXA;
 
+    private static final ObjectMapper objectMapper = new ObjectMapper()
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
     @Autowired
     @Qualifier("emailConfigBean")
     private Configuration emailConfig;
@@ -71,7 +77,8 @@ public class SendingEmailServiceImpl implements SendingEmailService{
         mailModel.setTemplate(Optional.ofNullable(templateEmail).orElse(""));
 
         try {
-            String payload = String.join("|", Serializer.toJson(mandrillMsg), Serializer.toJson(mailModel));
+            ObjectWriter writer = objectMapper.writer();
+            String payload = String.join("|", writer.writeValueAsString(mandrillMsg), writer.writeValueAsString(mailModel));
             queueSender.convertAndSend(ExchangeType.AMQ_SEND_GENERIC.getExchange(), getRoutingByHotel(mailModel), payload);
         } catch (Exception e) {
             e.printStackTrace();

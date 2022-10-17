@@ -9,8 +9,8 @@ import ai.omnilogic.travel.emails.models.log.LogEmail;
 import ai.omnilogic.travel.emails.models.mail.Mail;
 import ai.omnilogic.travel.emails.repositories.LogEmailRepository;
 import ai.omnilogic.travel.emails.utils.Utils;
-import br.com.omnilogic.javautils.utils.Serializer;
 import com.bugsnag.Bugsnag;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microtripit.mandrillapp.lutung.MandrillApi;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage;
@@ -87,7 +87,7 @@ public class MandrillService extends AbstractPlayerService implements IPlayerSer
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setHeader("x-delay", waitingTimeInSeconds);
         try {
-            org.springframework.amqp.core.Message messageAMQ = new org.springframework.amqp.core.Message(Serializer.toJson(mailModel).getBytes(), messageProperties);
+            org.springframework.amqp.core.Message messageAMQ = new org.springframework.amqp.core.Message(new ObjectMapper().writer().writeValueAsString(mailModel).getBytes(), messageProperties);
             queueSender.convertAndSend(ExchangeType.AMQ_CHECK_GENERIC.getExchange(),
                     routing,
                     messageAMQ);
