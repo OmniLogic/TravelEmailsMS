@@ -59,7 +59,7 @@ spec:
             secretKeyRef:
               key: RABBITMQ_TAUA_PASSWORD
               name: integrations-secret
-        image: omnilogic.azurecr.io/travel-emails-microservice-api-hmg:v344
+        image: omnilogic.azurecr.io/travel-emails-microservice-api-hmg:v1
         name: travel-emails-microservice-api-hmg
         ports:
         - containerPort: 8080
