@@ -17,10 +17,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - emails-taua-ms-hmg.omnilogic.ai
+        - emails-taua-ms-hmg.aks-internal.io
       secretName: tls-travel-emails-microservice-api-hmg-secret
   rules:
-    - host: emails-taua-ms-hmg.omnilogic.ai
+    - host: emails-taua-ms-hmg.aks-internal.io
       http:
         paths:
           - backend:
