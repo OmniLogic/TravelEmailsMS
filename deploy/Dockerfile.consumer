@@ -5,4 +5,4 @@ USER root
 RUN apk update && apk add tzdata
 ENTRYPOINT echo "Server datetime is: $(date +'%d/%m/%Y %H:%m:%S')"
 
-COPY /target/TravelEmailsCore.jar /TravelEmailsCore.jar
+COPY /target/TravelEmailsMS.jar /TravelEmailsMS.jar

@@ -6,7 +6,6 @@ azure:
         secondaryKey: ${COSMOS_TAUA_SECONDARY_KEY}
         uri: https://traveldb-taua.documents.azure.com:443/
 
-
 spring:
     rabbitmq:
         host: rmq-pro-taua.aks-internal.io
