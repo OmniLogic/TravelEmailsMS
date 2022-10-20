@@ -19,7 +19,6 @@
 		<bugsnag.version>3.6.4</bugsnag.version>
 		<cosmos.version>3.27.0</cosmos.version>
 		<omnilogic-utils.version>0.0.14</omnilogic-utils.version>
-		<omnilogic-integration-volux.version>0.0.1-SNAPSHOT</omnilogic-integration-volux.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -64,11 +63,6 @@
 			<groupId>br.com.omnilogic</groupId>
 			<artifactId>utils</artifactId>
 			<version>${omnilogic-utils.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>br.com.omnilogic.api</groupId>
-			<artifactId>IntegrationVoluxAPI</artifactId>
-			<version>${omnilogic-integration-volux.version}</version>
 		</dependency>
     </dependencies>
 
