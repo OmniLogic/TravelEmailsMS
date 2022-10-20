@@ -42,7 +42,7 @@ public class SendingEmailErrorServiceImpl implements  SendingEmailErrorService{
     public void sendErrorPaymentCreditCardMail(ReservationDTO reservation) {
         try {
             Mail mail = new Mail();
-            SendingEmailServiceImpl.defineAraxaOrNo(mail, reservation.getHotelCode());
+            sendingEmailService.defineAraxaOrNo(mail, reservation.getHotelCode());
             mail.setHotelCode(reservation.getHotelCode());
             mail.setReserveId(reservation.getReserveId());
             mail.setTo(reservation.getCustomer().getEmail());
@@ -69,7 +69,7 @@ public class SendingEmailErrorServiceImpl implements  SendingEmailErrorService{
     public void sendErrorPaymentPixMail(ReservationDTO reservation) {
         try{
             Mail mail = new Mail();
-            SendingEmailServiceImpl.defineAraxaOrNo(mail, reservation.getHotelCode());
+            sendingEmailService.defineAraxaOrNo(mail, reservation.getHotelCode());
             mail.setHotelCode(reservation.getHotel().getCode());
             mail.setReserveId(reservation.getReserveId());
             mail.setTo(reservation.getCustomer().getEmail());
@@ -100,7 +100,7 @@ public class SendingEmailErrorServiceImpl implements  SendingEmailErrorService{
                 return;
 
             Mail email = new Mail();
-            SendingEmailServiceImpl.defineAraxaOrNo(email, HotelType.CAETE.getCode());
+            sendingEmailService.defineAraxaOrNo(email, HotelType.CAETE.getCode());
             email.setSubject(String.format("ERRO COMUNICAÇÃO COM SERVIDOR DO VOLUX"));
             Optional<String> firstEmail = userNotification.getUserNotifications().stream().map(UserNotification::getEmail).findFirst();
             AtomicReference<String> otherEmailCC = new AtomicReference<>("");

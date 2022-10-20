@@ -104,7 +104,7 @@ public class SendingEmailCancelReservationServiceImpl implements SendingEmailCan
     private Mail createDataSendToTauaReserveCancellationByClient(ReservationDTO reservation) {
         Mail email = new Mail();
         HotelType hotelType = HotelType.getNameByCode(reservation.getHotelCode());
-        SendingEmailServiceImpl.defineAraxaOrNo(email, reservation.getHotelCode());
+        sendingEmailService.defineAraxaOrNo(email, reservation.getHotelCode());
         email.setSubject(String.format("#%s - %s", reservation.getReserveId(), hotelType.getName()));
         email.setTo(TAUA_EMAIL_REQUEST_CANCEL);
         Map<String, Object> model = new HashMap<>();
@@ -119,7 +119,7 @@ public class SendingEmailCancelReservationServiceImpl implements SendingEmailCan
     private Mail createDataToSendReserveCancellation(ReservationDTO reservation) throws Exception {
 
         Mail email = new Mail();
-        SendingEmailServiceImpl.defineAraxaOrNo(email, reservation.getHotelCode());
+        sendingEmailService.defineAraxaOrNo(email, reservation.getHotelCode());
         Map<String, Object> model = new HashMap();
 
         try {
@@ -195,7 +195,7 @@ public class SendingEmailCancelReservationServiceImpl implements SendingEmailCan
     private Mail createDataToSendReserveCancellationTaua(ReservationDTO reservation) throws Exception {
 
         Mail email = new Mail();
-        SendingEmailServiceImpl.defineAraxaOrNo(email, reservation.getHotelCode());
+        sendingEmailService.defineAraxaOrNo(email, reservation.getHotelCode());
         Map<String, Object> model = new HashMap();
 
         try {
@@ -299,7 +299,7 @@ public class SendingEmailCancelReservationServiceImpl implements SendingEmailCan
 
     private Mail cancelMailBuilder(ReservationDTO reservation) {
         Mail mail = new Mail();
-        SendingEmailServiceImpl.defineAraxaOrNo(mail, reservation.getHotelCode());
+        sendingEmailService.defineAraxaOrNo(mail, reservation.getHotelCode());
         mail.setSubject("Sua reserva foi cancelada.");
         mail.setTo(reservation.getCustomer().getEmail());
         mail.setCc(reservation.getEmailCc());

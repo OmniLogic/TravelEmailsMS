@@ -100,7 +100,7 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
 
     private Mail createDataToSendByReservation(ReservationDTO reservation, String title, boolean paid) {
         Mail email = new Mail();
-        SendingEmailServiceImpl.defineAraxaOrNo(email, reservation.getHotelCode());
+        sendingEmailService.defineAraxaOrNo(email, reservation.getHotelCode());
         email.setHotelCode(reservation.getHotelCode());
         email.setReserveId(reservation.getReserveId());
         email.setTo(reservation.getCustomer().getEmail());
