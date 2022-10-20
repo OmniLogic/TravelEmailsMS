@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   annotations:
     budy/pipeline: https://ci.omnilogic.com.br/omnilogic/travelemailscore/pipelines/pipeline/643
-    git.repo: https://github.com/OmniLogic/TravelEmailsMS
+    git.repo: https://github.com/OmniLogic/TravelEmailsCore
   name: travel-taua-emails-consumer-sandbox
   namespace: integrations
 spec:
@@ -53,7 +53,7 @@ spec:
             secretKeyRef:
               key: RABBITMQ_TAUA_PASSWORD
               name: integrations-secret
-        image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer-sandbox:v1
+        image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer-sandbox:v2
         imagePullPolicy: Always
         livenessProbe:
           exec:
