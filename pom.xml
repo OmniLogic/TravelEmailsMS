@@ -11,7 +11,7 @@
 	<groupId>ai.omnilogic.travel</groupId>
 	<artifactId>emails</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>TravelEmailsCore</name>
+	<name>TravelEmailsMS</name>
 	<description>Travel emails notification project for Omnilogic</description>
 	<properties>
 		<java.version>17</java.version>
@@ -78,7 +78,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<finalName>TravelEmailsCore</finalName>
+					<finalName>TravelEmailsMS</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
