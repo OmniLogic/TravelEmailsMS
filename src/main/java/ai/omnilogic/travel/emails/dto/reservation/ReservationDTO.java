@@ -1,5 +1,6 @@
 package ai.omnilogic.travel.emails.dto.reservation;
 
+import ai.omnilogic.travel.emails.dto.EmailDTO;
 import ai.omnilogic.travel.emails.dto.additional_service.AdditionalServiceDTO;
 import ai.omnilogic.travel.emails.models.Customer.CustomerDTO;
 import ai.omnilogic.travel.emails.models.Totals;
@@ -55,6 +56,8 @@ public class ReservationDTO {
 
     @JsonProperty("payments")
     private List<Payment> payments;
+
+    private EmailDTO email;
 
     public String getCancellationRequestDate() {
         return this.cancellationRequestDate == null? LocalDateTime.now().toString() : this.cancellationRequestDate;

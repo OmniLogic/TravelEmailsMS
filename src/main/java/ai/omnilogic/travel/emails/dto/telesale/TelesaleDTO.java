@@ -1,5 +1,6 @@
 package ai.omnilogic.travel.emails.dto.telesale;
 
+import ai.omnilogic.travel.emails.dto.EmailDTO;
 import ai.omnilogic.travel.emails.models.Customer.CustomerDTO;
 import ai.omnilogic.travel.emails.models.hotel.Hotel;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -42,6 +43,8 @@ public class TelesaleDTO {
 
     @JsonProperty("validity_in_hours")
     private Integer validityInHours;
+
+    private EmailDTO email;
 
     public Integer getHotelCode() {
         return this.getHotel().getCode();

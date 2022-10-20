@@ -6,6 +6,7 @@ import java.util.*;
 
 import ai.omnilogic.travel.emails.dto.additional_service.AdditionalServiceDTO;
 import ai.omnilogic.travel.emails.dto.tariff.PricingTariffRuleDTO;
+import ai.omnilogic.travel.emails.models.hotel.HotelEmail;
 import ai.omnilogic.travel.emails.models.hotel.HotelType;
 import ai.omnilogic.travel.emails.dto.reservation.ItemReservationDTO;
 import ai.omnilogic.travel.emails.dto.reservation.ReservationDTO;
@@ -100,12 +101,13 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
 
     private Mail createDataToSendByReservation(ReservationDTO reservation, String title, boolean paid) {
         Mail email = new Mail();
+        HotelEmail hotelEmail = reservation.getEmail().getEmail();
         SendingEmailServiceImpl.defineAraxaOrNo(email, reservation.getHotelCode());
         email.setHotelCode(reservation.getHotelCode());
         email.setReserveId(reservation.getReserveId());
         email.setTo(reservation.getCustomer().getEmail());
         email.setName(reservation.getCustomer().getFullName());
-        email.setSubject(title);
+        email.setSubject(hotelEmail.getSubject());
         String number = "(31) 3236-1900";
 
         if(Optional.ofNullable(reservation.getTeleSaleId()).isPresent() && !reservation.getTeleSaleId().trim().isEmpty()){
@@ -114,11 +116,15 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
                     && !reservation.getEmailCc().isEmpty()){
                email.setCc(reservation.getEmailCc());
                 if(paid)
-                    number = "0800 333 1900";
+                    number = hotelEmail.getContactPhone();
             }
         }
+        if(hotelEmail.getCc() != null && !hotelEmail.getCc().isEmpty()) {
+            String cc = String.format("%s,%s", email.getCc(), String.join(",", hotelEmail.getCc()));
+            email.setCc(cc);
+        }
         if(!Optional.ofNullable(email.getCc()).isPresent() || email.getCc().trim().isEmpty()){
-            email.setBcc(reservation.getHotelCode() == 3? TAUA_EMAIL_CONFIRM_RESERVATION_ARAXA : TAUA_EMAIL_CONFIRM_RESERVATION);
+            email.setBcc(String.join(",", hotelEmail.getBcc()));
         }
 
         Map<String, Object> model = new HashMap<>();
@@ -146,13 +152,14 @@ public class SendingEmailReservationServiceImpl implements SendingEmailReservati
             });
         }
 
-        model.put("listPolicies", listOfPolicies);
+        model.put("policies", reservation.getEmail().getTermPoliciesHtml());
         model.put("name", reservation.getCustomer().getFullName());
         model.put("reserve_id", reservation.getReserveId());
         //TODO domingo tem horario de checkin as 17:00
         model.put("checkinDate", Utils.formatDateToBr(reservation.getHotel().getStayDateStart()));
         model.put("checkinHour", "Check-in segunda a sábado: 15:00h </br> e aos domingos: 17:00h");
         model.put("number", number);
+        model.put("email", hotelEmail.getContatEmail());
         String childText;
         if (reservation.getChildrenInformation() != null && !reservation.getChildrenInformation().isEmpty())
             childText = reservation.getChildrenInformation();
