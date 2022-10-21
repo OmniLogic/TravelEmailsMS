@@ -78,7 +78,7 @@ public class SendingEmailTelesaleServiceImpl implements SendingEmailTelesaleServ
 
     private Mail budGetMailBuilder(TelesaleDTO telesale) {
         Mail email = new Mail();
-        SendingEmailServiceImpl.defineAraxaOrNo(email, telesale.getHotelCode());
+        sendingEmailService.defineAraxaOrNo(email, telesale.getHotelCode());
         email.setHotelCode(telesale.getHotelCode());
         email.setReserveId(telesale.getSaleId());
         email.setTo(telesale.getCustomer().getEmail());
@@ -163,7 +163,7 @@ public class SendingEmailTelesaleServiceImpl implements SendingEmailTelesaleServ
 
     private Mail preSaleMailBuilder(TelesaleDTO telesale) {
         Mail email = new Mail();
-        SendingEmailServiceImpl.defineAraxaOrNo(email, telesale.getHotelCode());
+        sendingEmailService.defineAraxaOrNo(email, telesale.getHotelCode());
         email.setHotelCode(telesale.getHotelCode());
         email.setReserveId(telesale.getSaleId());
         email.setTo(telesale.getCustomer().getEmail());

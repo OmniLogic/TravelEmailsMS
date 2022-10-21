@@ -30,16 +30,16 @@ public class SendingEmailServiceImpl implements SendingEmailService{
     private final AmqpTemplate queueSender;
 
     @Value("${taua.email.from}")
-    private static String TAUA_EMAIL_FROM;
+    private String TAUA_EMAIL_FROM;
 
     @Value("${taua.email.from-araxa}")
-    private static String TAUA_EMAIL_FROM_ARAXA;
+    private String TAUA_EMAIL_FROM_ARAXA;
 
     @Value("${taua.email.replay-to}")
-    private static String TAUA_EMAIL_REPLAYTO;
+    private String TAUA_EMAIL_REPLAYTO;
 
     @Value("${taua.email.replay-to-araxa}")
-    private static String TAUA_EMAIL_REPLAYTO_ARAXA;
+    private String TAUA_EMAIL_REPLAYTO_ARAXA;
 
     private static final ObjectMapper objectMapper = new ObjectMapper()
             .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -126,7 +126,8 @@ public class SendingEmailServiceImpl implements SendingEmailService{
             sendMail(mailModel, "emailGeneric.ftl");
     }
 
-    public static void defineAraxaOrNo(Mail mail, Integer hotelCode) {
+    @Override
+    public void defineAraxaOrNo(Mail mail, Integer hotelCode) {
         if (hotelCode != null && hotelCode.equals(HotelType.ARAXA.getCode())) {
             mail.setFrom(TAUA_EMAIL_FROM_ARAXA);
             mail.setReplayTo(TAUA_EMAIL_REPLAYTO_ARAXA);
