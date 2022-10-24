@@ -673,7 +673,7 @@
                                                                         class="CToWUd"></td>
                                                             <td align="left" valign="middle"
                                                                 style="font-family:Arial,Helvetica,sans-serif;color:#696969;font-size:18px;padding-left:20px">
-                                                                0800 333 1900
+                                                                ${number}
                                                             </td>
                                                         </tr>
                                                         </tbody>
@@ -692,7 +692,7 @@
                                                                         class="CToWUd"></td>
                                                             <td align="left" valign="middle"
                                                                 style="font-family:Arial,Helvetica,sans-serif;color:#696969;font-size:18px;padding-left:20px">
-                                                                <a href="mailto:reservas2@taua.com.br" target="_blank">reservas2@taua.com.br</a>
+                                                                <a href="mailto:reservas2@taua.com.br" target="_blank">${email}</a>
                                                             </td>
                                                         </tr>
                                                         </tbody>
@@ -731,72 +731,6 @@
                                                                     <tr>
                                                                         <td height="25"></td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td align="left" valign="middle"
-                                                                            style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:bold">
-                                                                            Política do orçamento
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" valign="middle"
-                                                                            style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;text-align:justify;line-height:22px">
-                                                                            Valores e disponibilidades sujeitos a
-                                                                            mudança a qualquer momento, independente do
-                                                                            conteúdo apresentado nesse orçamento.
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <table cellspacing="0" cellpadding="0"
-                                                                       style="margin:0;padding:0;display:block;color:#696969">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td height="25"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" valign="middle"
-                                                                            style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:bold">
-                                                                            Políticas Gerais
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" valign="middle"
-                                                                            style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;text-align:justify;line-height:22px">
-                                                                            - Para liberação do check-in, será
-                                                                            indispensável que o titular do cartão
-                                                                            apresente ao recepcionista o cartão
-                                                                            empregado na confirmação da reserva,
-                                                                            juntamente com seu RG.- Não nos
-                                                                            responsabilizamos por objetos de valor
-                                                                            deixados no interior do apartamento.- Não é
-                                                                            permitido a entrada de alimentos e bebidas
-                                                                            nas dependências do hotel.- As despesas
-                                                                            extras serão pagas à vista na saída do hotel
-                                                                            em dinheiro ou cartão.Não aceitamos o cartão
-                                                                            Hipercard.- Por determinação da Lei Federal
-                                                                            n. 8.069, de 13/07/1990, é proibida a
-                                                                            hospedagem de menor de idade desacompanhado
-                                                                            dos pais, sem o documento que autorize a sua
-                                                                            estada. - TAXA de ISS já está inclusa no
-                                                                            valor da hospedagem.
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <table cellspacing="0" cellpadding="0"
-                                                                       style="margin:0;padding:0;display:block;color:#696969">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td height="25"></td>
-                                                                    </tr>
                                                                     <#list listPolicies as policie>
                                                                         <tr>
                                                                             <td align="left" valign="middle"
@@ -807,8 +741,8 @@
                                                                         <tr>
                                                                             <td align="left" valign="middle"
                                                                                 style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;text-align:justify;line-height:22px">
-                                                                                    ${policie.tarife_description}.
-                                                                                    <br>${policie.tarife_policie}
+                                                                                ${policie.tarife_description}.
+                                                                                <br>${policie.tarife_policie}
 
                                                                             </td>
                                                                         </tr>
@@ -827,90 +761,8 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td align="left" valign="middle"
-                                                                            style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:bold">
-                                                                            MEDIDAS DE SEGURANÇA
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" valign="middle"
                                                                             style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;text-align:justify;line-height:22px">
-                                                                            Obrigatório o uso de máscaras em ambientes
-                                                                            de circulação com outros hóspedes; Aferição
-                                                                            de temperatura na entrada do resort; Em caso
-                                                                            de temperatura superior a 37,5º a reserva
-                                                                            será alterada e a entrada não será
-                                                                            permitida; Pontos de álcool em gel em locais
-                                                                            estratégicos em todo o resort; Rigorosos
-                                                                            processos de limpeza e desinfecção com
-                                                                            antissépticos ou sanitizantes autorizados
-                                                                            pela ANVISA RDC 350/2020;*Troca de roupa de
-                                                                            cama realizada por profissional paramentado
-                                                                            e procedimentos de transporte sistêmicos; As
-                                                                            atividades com Os Taualegres estão sendo
-                                                                            realizadas ao ar livre e com turma reduzida
-                                                                            de crianças; Para sua segurança alguns
-                                                                            ambientes estarão com agendamento de horário
-                                                                            ou fechados (consulte no ato da reserva);
-                                                                            Para as refeições é obrigatório luvas
-                                                                            descartáveis para servir, além do uso
-                                                                            máscaras durante a locomoção no restaurante
-                                                                            e no momento de se servir, podendo ser
-                                                                            retiradas somente na hora da refeição;Nossos
-                                                                            colaboradores passam por treinamentos
-                                                                            frequentes dos protocolos de segurança.
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <table cellspacing="0" cellpadding="0"
-                                                                       style="margin:0;padding:0;display:block;color:#696969">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td height="25"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" valign="middle"
-                                                                            style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:bold">
-                                                                            E se precisar cancelar?
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" valign="middle"
-                                                                            style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;text-align:justify;line-height:22px">
-                                                                            As condições para cancelamento variam de
-                                                                            acordo com o tipo de tarifa. Verifique as
-                                                                            políticas de cada condição e tire suas
-                                                                            dúvidas.
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <table cellspacing="0" cellpadding="0"
-                                                                       style="margin:0;padding:0;display:block;color:#696969">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td height="25"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" valign="middle"
-                                                                            style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:bold">
-                                                                            Formas de pagamento
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="left" valign="middle"
-                                                                            style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;text-align:justify;line-height:22px">
-                                                                            A reserva é confirmada mediante pagamento. O
-                                                                            valor será debitado no cartão no momento da
-                                                                            compra.
+                                                                            ${policies}
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>

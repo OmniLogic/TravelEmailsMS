@@ -5,6 +5,7 @@ import ai.omnilogic.travel.emails.dto.tariff.PricingTariffRuleDTO;
 import ai.omnilogic.travel.emails.dto.telesale.OptionDTO;
 import ai.omnilogic.travel.emails.dto.telesale.TelesaleDTO;
 import ai.omnilogic.travel.emails.enums.AgeGroup;
+import ai.omnilogic.travel.emails.models.hotel.HotelEmail;
 import ai.omnilogic.travel.emails.models.hotel.HotelType;
 import ai.omnilogic.travel.emails.models.mail.Mail;
 import ai.omnilogic.travel.emails.services.sendmail.SendingEmailService;
@@ -78,14 +79,18 @@ public class SendingEmailTelesaleServiceImpl implements SendingEmailTelesaleServ
 
     private Mail budGetMailBuilder(TelesaleDTO telesale) {
         Mail email = new Mail();
+        HotelEmail hotelEmail = telesale.getEmail().getEmail();
         sendingEmailService.defineAraxaOrNo(email, telesale.getHotelCode());
         email.setHotelCode(telesale.getHotelCode());
         email.setReserveId(telesale.getSaleId());
         email.setTo(telesale.getCustomer().getEmail());
         email.setName(telesale.getCustomer().getFullName());
-        email.setSubject("Seu orçamento está pronto.");
+        email.setSubject(hotelEmail.getSubject());
         email.setReplayTo(telesale.getEmailSeller());
-        email.setCc(telesale.getEmailSeller());
+        String cc = telesale.getEmailSeller();
+        if(!hotelEmail.getCc().isEmpty())
+            cc = String.format("%s,%s", cc, String.join(",", hotelEmail.getCc()));
+        email.setCc(cc);
 
         Map<String, Object> model = new HashMap();
         model.put("name", telesale.getCustomer().getFullName());
@@ -119,6 +124,10 @@ public class SendingEmailTelesaleServiceImpl implements SendingEmailTelesaleServ
 
         model.put("token", telesale.getToken());
 
+        model.put("number", hotelEmail.getContactPhone());
+        model.put("email", hotelEmail.getContatEmail());
+        model.put("policies", telesale.getEmail().getTermPoliciesHtml());
+
         String childText;
 
         if (telesale.getChildrenInformation() != null && !telesale.getChildrenInformation().trim().isEmpty())
@@ -128,33 +137,7 @@ public class SendingEmailTelesaleServiceImpl implements SendingEmailTelesaleServ
 
         model.put("childText", childText);
 
-        List<Map<String, Object>> listOfPolicies = new ArrayList<>();
-
-        telesale.getOptions().forEach(option -> {
-
-            List<PricingTariffRuleDTO> tariffs = option.getItems().stream()
-                    .filter(itemOrder -> itemOrder.getTariffId() != null)
-                    .map(ItemReservationDTO::getTariff).toList();
-
-            tariffs.forEach(tariff->{
-                Map<String, Object> tariffPolicies = new HashMap<>();
-                tariffPolicies.put("tarife_title", tariff.getDisplayPrice().getLabelPublic());
-                if(tariff.getDisplayPrice().getPoliciesRestrictions() != null){
-                    tariffPolicies.put("tarife_policie", tariff.getDisplayPrice().getPoliciesRestrictions());
-                }else{
-                    tariffPolicies.put("tarife_policie", " ");
-                }
-
-                if(tariff.getDisplayPrice().getDescription() != null){
-                    tariffPolicies.put("tarife_description", tariff.getDisplayPrice().getDescription());
-                }else{
-                    tariffPolicies.put("tarife_description", " ");
-                }
-                listOfPolicies.add(tariffPolicies);
-            });
-        });
-
-        model.put("listPolicies", listOfPolicies);
+        makeTariffDescription(telesale, model);
 
         email.setModel(model);
 
@@ -163,14 +146,18 @@ public class SendingEmailTelesaleServiceImpl implements SendingEmailTelesaleServ
 
     private Mail preSaleMailBuilder(TelesaleDTO telesale) {
         Mail email = new Mail();
+        HotelEmail hotelEmail = telesale.getEmail().getEmail();
         sendingEmailService.defineAraxaOrNo(email, telesale.getHotelCode());
         email.setHotelCode(telesale.getHotelCode());
         email.setReserveId(telesale.getSaleId());
         email.setTo(telesale.getCustomer().getEmail());
         email.setName(telesale.getCustomer().getFullName());
-        email.setSubject("Sua reserva está aguardando confirmação.");
+        email.setSubject(hotelEmail.getSubject());
         email.setReplayTo(telesale.getEmailSeller());
-        email.setCc(telesale.getEmailSeller());
+        String cc = telesale.getEmailSeller();
+        if(!hotelEmail.getCc().isEmpty())
+            cc = String.format("%s,%s", cc, String.join(",", hotelEmail.getCc()));
+        email.setCc(cc);
 
         Map<String, Object> model = new HashMap();
         model.put("name", telesale.getCustomer().getFullName());
@@ -191,34 +178,12 @@ public class SendingEmailTelesaleServiceImpl implements SendingEmailTelesaleServ
             childText = "02 Crianças de 0 a 12 anos se hospedam gratuitamente quando ocupam o quarto dos pais ou guardiões, usando as camas existentes. Os pais devem apresentar a certidão de nascimento e documentação da criança. Animais de estimação não são aceitos.";
 
         model.put("childText", childText);
-        List<Map<String, Object>> listOfPolicies = new ArrayList<>();
 
-        telesale.getOptions().forEach(option -> {
+        model.put("number", hotelEmail.getContactPhone());
+        model.put("email", hotelEmail.getContatEmail());
+        model.put("policies", telesale.getEmail().getTermPoliciesHtml());
 
-
-            List<PricingTariffRuleDTO> tariffs = option.getItems().stream()
-                    .filter(itemOrder -> itemOrder.getTariffId() != null)
-                    .map(ItemReservationDTO::getTariff).toList();
-
-            tariffs.forEach(tariff->{
-                Map<String, Object> tariffPolicies = new HashMap<>();
-                tariffPolicies.put("tarife_title", tariff.getDisplayPrice().getLabelPublic());
-                if(tariff.getDisplayPrice().getPoliciesRestrictions() != null){
-                    tariffPolicies.put("tarife_policie", tariff.getDisplayPrice().getPoliciesRestrictions());
-                }else{
-                    tariffPolicies.put("tarife_policie", " ");
-                }
-
-                if(tariff.getDisplayPrice().getDescription() != null){
-                    tariffPolicies.put("tarife_description", tariff.getDisplayPrice().getDescription());
-                }else{
-                    tariffPolicies.put("tarife_description", " ");
-                }
-                listOfPolicies.add(tariffPolicies);
-            });
-        });
-
-        model.put("listPolicies", listOfPolicies);
+        makeTariffDescription(telesale, model);
 
         if (telesale.getOptions().get(0).getItems() != null && telesale.getOptions().get(0).getItems().size() > 0) {
 
@@ -276,6 +241,37 @@ public class SendingEmailTelesaleServiceImpl implements SendingEmailTelesaleServ
         email.setModel(model);
 
         return email;
+    }
+
+    private void makeTariffDescription(TelesaleDTO telesale, Map<String, Object> model) {
+        List<Map<String, Object>> listOfPolicies = new ArrayList<>();
+
+        telesale.getOptions().forEach(option -> {
+
+
+            List<PricingTariffRuleDTO> tariffs = option.getItems().stream()
+                    .filter(itemOrder -> itemOrder.getTariffId() != null)
+                    .map(ItemReservationDTO::getTariff).toList();
+
+            tariffs.forEach(tariff->{
+                Map<String, Object> tariffPolicies = new HashMap<>();
+                tariffPolicies.put("tarife_title", tariff.getDisplayPrice().getLabelPublic());
+                if(tariff.getDisplayPrice().getPoliciesRestrictions() != null){
+                    tariffPolicies.put("tarife_policie", tariff.getDisplayPrice().getPoliciesRestrictions());
+                }else{
+                    tariffPolicies.put("tarife_policie", " ");
+                }
+
+                if(tariff.getDisplayPrice().getDescription() != null){
+                    tariffPolicies.put("tarife_description", tariff.getDisplayPrice().getDescription());
+                }else{
+                    tariffPolicies.put("tarife_description", " ");
+                }
+                listOfPolicies.add(tariffPolicies);
+            });
+        });
+
+        model.put("listPolicies", listOfPolicies);
     }
 
 

@@ -81,7 +81,7 @@
 												<hr width="215" height="2" color="#7F6F50">
 											</td>
 
-											<td style="margin-top:-3px;padding-left:50px;padding-right:50px;">
+											<td style="margin-top:-3px;padding-left:0px;padding-right:0px;">
 												<img src="https://traveltaua.blob.core.windows.net/images-web/engrenagem_template_email.png" width="100%">
 
 											</td>
@@ -680,7 +680,7 @@
 													<tr>
 														<td align="left" valign="middle"
 															style="font-family:SangBleu Sunrise;color:#7F6F50;font-size:16px;padding-left:20px">
-															Telefone 0800 0031 910 </td>
+															Telefone ${number} </td>
 													</tr>
 													</tbody>
 												</table>
@@ -694,8 +694,8 @@
 													<tr>
 														<td align="left" valign="middle"
 															style="font-family:SangBleu Sunrise;color:#7F6F50;font-size:16px;padding-left:20px">
-															E-mail <a href="mailto:reservas1.araxa@gharaxa.com"
-																	  target="_blank" style="text-decoration: none;">reservas1.araxa@gharaxa.com</a>
+															E-mail <a href="mailto:reservas2@taua.com.br"
+																	  target="_blank" style="text-decoration: none;">${email}</a>
 														</td>
 													</tr>
 													</tbody>
@@ -738,92 +738,6 @@
 																<tr>
 																	<td height="25"></td>
 																</tr>
-																<tr>
-																	<td align="left"
-																		valign="middle"
-																		style="margin:0;padding:0;font-family:SangBleu Sunrise;font-size:15px;font-weight:700">
-																		Política da reserva
-																	</td>
-																</tr>
-																<tr>
-																	<td align="left"
-																		valign="middle"
-																		style="margin:0;padding:0;font-family:SangBleu Sunrise;font-size:12px;text-align:justify;line-height:22px">
-																		Os valores desta reserva
-																		são garantidos nas
-																		mesmas condições acima
-																		apresentadas. Caso haja
-																		qualquer alteração, os
-																		valores estarão sujeitos
-																		a mudança.
-																	</td>
-																</tr>
-																</tbody>
-															</table>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<table cellspacing="0" cellpadding="0"
-																   style="margin:0;padding:0;display:block;color:#7F6F50">
-																<tbody>
-																<tr>
-																	<td height="25"></td>
-																</tr>
-																<tr>
-																	<td align="left"
-																		valign="middle"
-																		style="margin:0;padding:0;font-family:SangBleu Sunrise;font-size:15px;font-weight:700">
-																		Políticas Gerais </td>
-																</tr>
-																<tr>
-																	<td align="left"
-																		valign="middle"
-																		style="margin:0;padding:0;font-family:SangBleu Sunrise;font-size:12px;text-align:justify;line-height:22px">
-																		- Para liberação do
-																		check-in, será
-																		indispensável que o
-																		titular do cartão
-																		apresente ao
-																		recepcionista o cartão
-																		empregado na confirmação
-																		da reserva, juntamente
-																		com seu RG.- Não nos
-																		responsabilizamos por
-																		objetos de valor
-																		deixados no interior do
-																		apartamento.- Não é
-																		permitido a entrada de
-																		alimentos e bebidas nas
-																		dependências do hotel.-
-																		As despesas extras serão
-																		pagas à vista na saída
-																		do hotel em dinheiro ou
-																		cartão.Não aceitamos o
-																		cartão Hipercard.- Por
-																		determinação da Lei
-																		Federal n. 8.069, de
-																		13/07/1990, é proibida a
-																		hospedagem de menor de
-																		idade desacompanhado dos
-																		pais, sem o documento
-																		que autorize a sua
-																		estada. - TAXA de ISS já
-																		está inclusa no valor da
-																		hospedagem. </td>
-																</tr>
-																</tbody>
-															</table>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<table cellspacing="0" cellpadding="0"
-																   style="margin:0;padding:0;display:block;color:#7F6F50">
-																<tbody>
-																<tr>
-																	<td height="25"></td>
-																</tr>
 																<#list listPolicies as policie>
 																	<tr>
 																		<td align="left" valign="middle"
@@ -855,60 +769,9 @@
 																<tr>
 																	<td align="left"
 																		valign="middle"
-																		style="margin:0;padding:0;font-family:SangBleu Sunrise;font-size:15px;font-weight:700">
-																		MEDIDAS DE SEGURANÇA
-																	</td>
-																</tr>
-																<tr>
-																	<td align="left"
-																		valign="middle"
 																		style="margin:0;padding:0;font-family:SangBleu Sunrise;font-size:12px;text-align:justify;line-height:22px">
-																		Obrigatório o uso de
-																		máscaras em ambientes de
-																		circulação com outros
-																		hóspedes;Aferição de
-																		temperatura na entrada
-																		do resort; Em caso de
-																		temperatura superior a
-																		37,5º a reserva será
-																		alterada e a entrada não
-																		será permitida;Pontos de
-																		álcool em gel em locais
-																		estratégicos em todo o
-																		resort;Rigorosos
-																		processos de limpeza e
-																		desinfecção com
-																		antissépticos ou
-																		sanitizantes autorizados
-																		pela ANVISA RDC
-																		350/2020;Troca de roupa
-																		de cama realizada por
-																		profissional paramentado
-																		e procedimentos de
-																		transporte sistêmicos;As
-																		atividades com Os
-																		Taualegres estão sendo
-																		realizadas ao ar livre e
-																		com turma reduzida de
-																		crianças;Para sua
-																		segurança alguns
-																		ambientes estarão com
-																		agendamento de horário
-																		ou fechados (consulte no
-																		ato da reserva);Para as
-																		refeições é obrigatório
-																		luvas descartáveis para
-																		servir, além do uso
-																		máscaras durante a
-																		locomoção no restaurante
-																		e no momento de se
-																		servir, podendo ser
-																		retiradas somente na
-																		hora da refeição;Nossos
-																		colaboradores passam por
-																		treinamentos frequentes
-																		dos protocolos de
-																		segurança. </td>
+																		${policies}
+																	</td>
 																</tr>
 																</tbody>
 															</table>
@@ -934,70 +797,6 @@
 																		valign="middle"
 																		style="margin:0;padding:0;font-family:SangBleu Sunrise;font-size:12px;text-align:justify;line-height:22px">
 																		${childText}</td>
-																</tr>
-																</tbody>
-															</table>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<table cellspacing="0" cellpadding="0"
-																   style="margin:0;padding:0;display:block;color:#7F6F50">
-																<tbody>
-																<tr>
-																	<td height="25"></td>
-																</tr>
-																<tr>
-																	<td align="left"
-																		valign="middle"
-																		style="margin:0;padding:0;font-family:SangBleu Sunrise;font-size:15px;font-weight:700">
-																		E se precisar cancelar?
-																	</td>
-																</tr>
-																<tr>
-																	<td align="left"
-																		valign="middle"
-																		style="margin:0;padding:0;font-family:SangBleu Sunrise;font-size:12px;text-align:justify;line-height:22px">
-																		As condições para
-																		cancelamento variam de
-																		acordo com o tipo de
-																		tarifa. Verifique as
-																		políticas de cada
-																		condição e tire suas
-																		dúvidas. </td>
-																</tr>
-																</tbody>
-															</table>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<table cellspacing="0" cellpadding="0"
-																   style="margin:0;padding:0;display:block;color:#7F6F50">
-																<tbody>
-																<tr>
-																	<td height="25"></td>
-																</tr>
-																<tr>
-																	<td align="left"
-																		valign="middle"
-																		style="margin:0;padding:0;font-family:SangBleu Sunrise;font-size:15px;font-weight:700">
-																		Formas de pagamento e
-																		Horário de Checkin </td>
-																</tr>
-																<tr>
-																	<td align="left"
-																		valign="middle"
-																		style="margin:0;padding:0;font-family:SangBleu Sunrise;font-size:12px;text-align:justify;line-height:22px">
-																		A reserva é confirmada
-																		mediante pagamento. O
-																		valor será debitado no
-																		cartão no momento da
-																		compra.Check-in de
-																		Segunda a Sábado a
-																		partir das 15h e aos
-																		Domingos o check in as
-																		17h </td>
 																</tr>
 																</tbody>
 															</table>

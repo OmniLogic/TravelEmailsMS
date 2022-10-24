@@ -51,7 +51,8 @@ bugsnag:
 logging:
     file:
         path: "/tmp/emails-core-logs"
-
+server:
+    port: 8090
 ---
 spring:
     config:
