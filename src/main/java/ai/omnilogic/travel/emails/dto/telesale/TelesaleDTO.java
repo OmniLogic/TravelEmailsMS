@@ -1,6 +1,6 @@
 package ai.omnilogic.travel.emails.dto.telesale;
 
-import ai.omnilogic.travel.emails.models.Customer.CustomerDTO;
+import ai.omnilogic.travel.emails.models.customer.CustomerDTO;
 import ai.omnilogic.travel.emails.models.hotel.Hotel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package ai.omnilogic.travel.emails.dto.reservation;
 
 import ai.omnilogic.travel.emails.dto.additional_service.AdditionalServiceDTO;
-import ai.omnilogic.travel.emails.models.Customer.CustomerDTO;
+import ai.omnilogic.travel.emails.models.customer.CustomerDTO;
 import ai.omnilogic.travel.emails.models.Totals;
 import ai.omnilogic.travel.emails.models.hotel.Hotel;
 import ai.omnilogic.travel.emails.models.payment.Payment;

@@ -37,7 +37,7 @@ public class SendMailController {
     }
 
 
-    @PostMapping("/request_reservation")
+    @PostMapping("/request-reservation")
     public ResponseEntity requestReservation(@RequestBody ReservationDTO reservation) {
         try {
             sendingEmailReservationService.sendRequestReservation(reservation);
@@ -47,7 +47,7 @@ public class SendMailController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/confirm_reserve")
+    @PostMapping("/confirm-reserve")
     public ResponseEntity saleMailByReserve(@RequestBody ReservationDTO reservation){
 
         try {
@@ -58,31 +58,6 @@ public class SendMailController {
 
         return ResponseEntity.ok().build();
     }
-    /*
-    @Deprecated
-    @PostMapping("/send_sale_confirm_mail")
-    public ResponseEntity saleConfirm(@RequestBody Mail mail){
-
-        try {
-            sendingEmailReservationService.sendSaleConfirmMail(mail);
-        } catch (Exception ex) {
-            return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(ex.getMessage()) ;
-        }
-
-        return ResponseEntity.ok().body("Send mail to: "+mail.getTo());
-    }
-    @Deprecated
-    @PostMapping("/send_sale_mail")
-    public ResponseEntity saleMail(@RequestBody Mail mail){
-
-        try {
-            sendingEmailReservationService.sendSaleMail(mail);
-        } catch (Exception ex) {
-            return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(ex.getMessage()) ;
-        }
-
-        return ResponseEntity.ok().body("Send mail to: "+mail.getTo());
-    }*/
 
     @PostMapping("/budget")
     public ResponseEntity sendBudget(@RequestBody TelesaleDTO telesale) {
@@ -94,7 +69,7 @@ public class SendMailController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/pre_sale")
+    @PostMapping("/pre-sale")
     public ResponseEntity sendPreSale(@RequestBody TelesaleDTO telesale) {
         try {
             sendingEmailTelesaleService.sendPreSaleMail(telesale);
@@ -104,7 +79,7 @@ public class SendMailController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/error_payment_credit_card")
+    @PostMapping("/error-payment-credit-card")
     public ResponseEntity sendErrorPaymentCreditCardMail(@RequestBody ReservationDTO reservation) {
         try {
             sendingEmailErrorService.sendErrorPaymentCreditCardMail(reservation);
@@ -114,7 +89,7 @@ public class SendMailController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/error_payment_pix")
+    @PostMapping("/error-payment-pix")
     public ResponseEntity sendErrorPaymentPixMail(@RequestBody ReservationDTO reservation) {
         try {
             sendingEmailErrorService.sendErrorPaymentPixMail(reservation);
@@ -124,7 +99,7 @@ public class SendMailController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/notification_error")
+    @PostMapping("/notification-error")
     public ResponseEntity sendNotificationErrorMail(@RequestBody UserNotificationDTO userNotificationDTO) {
         try {
             sendingEmailErrorService.sendNotificationErrorMail(userNotificationDTO);
@@ -146,7 +121,7 @@ public class SendMailController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/cancellation_request_pix")
+    @PostMapping("/cancellation-request-pix")
     public ResponseEntity sendCancellationRequestPixMail(@RequestBody ReservationDTO reservationDTO) {
         try {
             sendingEmailCancelReservationService.sendReserveCancellationRequest(reservationDTO);
@@ -156,7 +131,7 @@ public class SendMailController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/cancellation_request_taua")
+    @PostMapping("/cancellation-request-taua")
     public ResponseEntity sendCancellationRequestTauaMail(@RequestBody ReservationDTO reservationDTO) {
         try {
             sendingEmailCancelReservationService.sendReserveCancellationRequestTaua(reservationDTO);
@@ -166,7 +141,7 @@ public class SendMailController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/to_taua_cancellation_by_client")
+    @PostMapping("/to-taua-cancellation-by-client")
     public ResponseEntity sendToTauaReserveCancellationByClient(@RequestBody ReservationDTO reservationDTO) {
         try {
             sendingEmailCancelReservationService.sendToTauaReserveCancellationByClient(reservationDTO);
@@ -176,7 +151,7 @@ public class SendMailController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/cancel_reservation")
+    @PostMapping("/cancel-reservation")
     public ResponseEntity sendCancelReserveMail(@RequestBody ReservationDTO reservationDTO) {
         try {
             sendingEmailCancelReservationService.sendCancelReserveMail(reservationDTO);
