@@ -19,6 +19,7 @@
 		<bugsnag.version>3.6.4</bugsnag.version>
 		<cosmos.version>3.27.0</cosmos.version>
 		<omnilogic-utils.version>0.0.14</omnilogic-utils.version>
+		<keycloak.version>18.0.0</keycloak.version>
 	</properties>
 	<dependencies>
 		<dependency>
