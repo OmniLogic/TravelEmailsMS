@@ -1,6 +1,6 @@
 azure:
     cosmos:
-        database: traveldb-taua
+        database: traveldb-taua-prd
         key: ${COSMOS_TAUA_KEY}
         queryMetricsEnabled: true
         secondaryKey: ${COSMOS_TAUA_SECONDARY_KEY}
