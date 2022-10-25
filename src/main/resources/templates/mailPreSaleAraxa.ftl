@@ -81,7 +81,7 @@
 												<hr width="215" height="2" color="#7F6F50">
 											</td>
 
-											<td style="margin-top:-3px;padding-left:0px;padding-right:0px;">
+											<td style="margin-top:-3px;padding-left:50px;padding-right:50px;">
 												<img src="https://traveltaua.blob.core.windows.net/images-web/engrenagem_template_email.png" width="100%">
 
 											</td>
