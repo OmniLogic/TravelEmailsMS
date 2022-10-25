@@ -11,13 +11,14 @@
 	<groupId>ai.omnilogic.travel</groupId>
 	<artifactId>emails</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>TravelEmailsMicroservice</name>
+	<name>TravelEmailsMS</name>
 	<description>Travel emails notification project for Omnilogic</description>
 	<properties>
 		<java.version>17</java.version>
 		<mandrill.version>0.0.8</mandrill.version>
 		<bugsnag.version>3.6.4</bugsnag.version>
 		<cosmos.version>3.27.0</cosmos.version>
+		<omnilogic-utils.version>0.0.14</omnilogic-utils.version>
 		<keycloak.version>18.0.0</keycloak.version>
 	</properties>
 	<dependencies>
@@ -72,6 +73,11 @@
 			<artifactId>azure-spring-data-cosmos</artifactId>
 			<version>${cosmos.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>br.com.omnilogic</groupId>
+			<artifactId>utils</artifactId>
+			<version>${omnilogic-utils.version}</version>
+		</dependency>
     </dependencies>
 
 	<build>
@@ -86,7 +92,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<finalName>TravelEmailsMicroservice</finalName>
+					<finalName>TravelEmailsMS</finalName>
 				</configuration>
 			</plugin>
 		</plugins>

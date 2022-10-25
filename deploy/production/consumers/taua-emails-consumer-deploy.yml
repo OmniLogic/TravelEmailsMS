@@ -19,7 +19,7 @@ spec:
       - command:
         - java
         - -jar
-        - TravelEmailsMicroservice.jar
+        - TravelEmailsMS.jar
         env:
         - name: OMNI_ENV
           value: prd
