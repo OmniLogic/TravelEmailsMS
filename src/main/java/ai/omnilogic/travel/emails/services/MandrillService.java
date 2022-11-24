@@ -74,8 +74,8 @@ public class MandrillService extends AbstractPlayerService implements IPlayerSer
                     isSent,
                     result.stream().map(MessageStatus::getStatus).findAny().orElse(StatusEmail.OTHERS).getName(),
                     mandrillIds);
-            if (!isSent)
-                sendQueueEmailSyncInfo(THREE_MINUTES, Map.of(mailModel.getHotelCode(), mandrillIds), getRoutingByHotel(mailModel));
+            //if (!isSent)
+            //    sendQueueEmailSyncInfo(THREE_MINUTES, Map.of(mailModel.getHotelCode(), mandrillIds), getRoutingByHotel(mailModel));
         } catch (SendEmailException ex) {
             log.error(String.format("Error send email >> %s", ex.getMessage()));
             throw ex;
