@@ -33,11 +33,11 @@ public class QueueCheckInfoEmailConsumer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        try {
+        /*try {
             mandrillService.verifyAndSyncInfo(list);
         } catch (SendEmailException e) {
             throw new RuntimeException(e);
-        }
+        }*/
         log.info("Result: Done");
     }
 
