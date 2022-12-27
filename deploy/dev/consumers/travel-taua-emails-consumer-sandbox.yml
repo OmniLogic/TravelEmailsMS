@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    budy/pipeline: https://ci.omnilogic.com.br/omnilogic/travelemailscore/pipelines/pipeline/643
+    git.repo: https://github.com/OmniLogic/TravelEmailsCore
+  name: travel-taua-emails-consumer-sandbox
+  namespace: integrations
+spec:
+  selector:
+    matchLabels:
+      app: travel-taua-emails-consumer-sandbox
+  template:
+    metadata:
+      labels:
+        app: travel-taua-emails-consumer-sandbox
+    spec:
+      containers:
+      - command:
+        - java
+        - -jar
+        - TravelEmailsMicroservice.jar
+        env:
+        - name: OMNI_ENV
+          value: dev
+        - name: COSMOS_TAUA_KEY
+          valueFrom:
+            secretKeyRef:
+              key: COSMOS_TAUA_KEY
+              name: integrations-secret
+        - name: COSMOS_TAUA_SECONDARY_KEY
+          valueFrom:
+            secretKeyRef:
+              key: COSMOS_TAUA_SECONDARY_KEY
+              name: integrations-secret
+        - name: COSMOS_TAUA_KEY_SANDBOX
+          valueFrom:
+            secretKeyRef:
+              key: COSMOS_TAUA_KEY_SANDBOX
+              name: integrations-secret
+        - name: COSMOS_TAUA_SECONDARY_KEY_SANDBOX
+          valueFrom:
+            secretKeyRef:
+              key: COSMOS_TAUA_SECONDARY_KEY_SANDBOX
+              name: integrations-secret
+        - name: MANDRILL_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: MANDRILL_API_KEY
+              name: integrations-secret
+        - name: RABBITMQ_TAUA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: RABBITMQ_TAUA_PASSWORD
+              name: integrations-secret
+        image: omnilogic.azurecr.io/travel-taua-emails-queue-consumer-sandbox:v2
+        imagePullPolicy: Always
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - '[ -n "$(find /tmp/emails-core-logs/*log* -mmin -360)" ] || exit 1'
+        name: travel-taua-emails-consumer-sandbox
+        ports:
+        - containerPort: 9102
+          name: metrics
+          protocol: TCP
+        resources:
+          limits:
+            memory: 1536Mi
+          requests:
+            cpu: 300m
+            memory: 1Gi
