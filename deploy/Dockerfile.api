@@ -1,0 +1,10 @@
+FROM openjdk:17-jdk-alpine
+
+ENV TZ=America/Fortaleza
+USER root
+RUN apk update && apk add tzdata
+ENTRYPOINT echo "Server datetime is: $(date +'%d/%m/%Y %H:%m:%S')"
+
+COPY /target/TravelEmailsMicroservice.jar /opt/TravelEmailsMicroservice.jar
+
+ENTRYPOINT ["java","-jar","/opt/TravelEmailsMicroservice.jar","-b","0.0.0.0"]

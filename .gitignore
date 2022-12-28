@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### Omnilogic ###
-.env
+*.env

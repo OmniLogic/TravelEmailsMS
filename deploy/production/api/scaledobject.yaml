@@ -1,0 +1,20 @@
+kind: ScaledObject
+apiVersion: keda.sh/v1alpha1
+metadata:
+  name: travel-emails-microservice-api
+  namespace: api
+spec:
+  maxReplicaCount: 6
+  minReplicaCount: 3
+  scaleTargetRef:
+    name: travel-emails-microservice-api
+  triggers:
+    - metadata:
+        metricName: latency_last_2m
+        query: >-
+          1000*histogram_quantile(0.99,
+          sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{ingress!="",ingress=~"travel-emails-microservice-api"}[2m]))
+          by (le, ingress))	
+        serverAddress: 'http://prometheus-k8s.monitoring.svc.cluster.local:9090'
+        threshold: '40'
+      type: prometheus

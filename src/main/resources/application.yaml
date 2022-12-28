@@ -1,3 +1,5 @@
+server:
+    port: 8080
 azure:
     cosmos:
         database: traveldb-taua-prd
@@ -6,6 +8,25 @@ azure:
         secondaryKey: ${COSMOS_TAUA_SECONDARY_KEY}
         uri: https://traveldb-taua.documents.azure.com:443/
 
+taua:
+    email:
+        from: reservas2@e.taua.com.br
+        from-araxa: reservas1.araxa@e.gharaxa.com
+        replay-to: reservas2@taua.com.br
+        replay-to-araxa: reservas1.araxa@gharaxa.com.br
+        name: "Tauá Resorts"
+        request-cancel: ludmilla.julio@taua.com.br
+        request-cancel-araxa: giordana.silva@taua.com.br
+        confirm-reservation: isabela.ferreira@taua.com.br
+        confirm-reservation-araxa: giordana.silva@taua.com.br
+    url:
+        site: "https://reservas.tauaresorts.com.br/"
+        site-araxa: "https://www.grandehotelaraxa.com/"
+        service: "https://integration-volux.omnilogic.com.br"
+        search: "busca-new/"
+        search-araxa: "busca-new-araxa/"
+        telesale: "telesale-new/"
+
 spring:
     rabbitmq:
         host: rmq-pro-taua.aks-internal.io
@@ -13,6 +34,15 @@ spring:
         virtual-host: /taua
         username: taua-user
         password: ${RABBITMQ_TAUA_PASSWORD}
+
+keycloak:
+    auth-server-url: https://auth.omnilogic.com.br/
+    realm: travel-taua
+    resource: app-emails-microservice
+    credentials:
+        secret: d7fce612-276d-46f8-b7ea-89728a851a17
+    bearer-only: true
+    cors: true
 
 mandrill:
     key: ${MANDRILL_API_KEY}
@@ -43,3 +73,16 @@ azure:
         queryMetricsEnabled: true
         secondaryKey: ${COSMOS_TAUA_SECONDARY_KEY_SANDBOX}
         uri: https://traveldb-taua-dev-v3.documents.azure.com:443/
+
+taua:
+    email:
+        request-cancel: diego.cerqueira@omnilogic.ai
+        confirm-reservation: diego.cerqueira@omnilogic.ai
+
+keycloak:
+    auth-server-url: https://auth.dev.omnilogic.com.br/
+    realm: travel-taua-sandbox
+    resource: app-emails-microservice
+    credentials:
+        secret: NWi5HrK1j23mSj8jD8FArXyB5NZkmNn1
+    bearer-only: true

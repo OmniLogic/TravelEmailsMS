@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: travel-emails-microservice-api
+  namespace: api
+  annotations:
+    acme.cert-manager.io/http01-ingress-class: nginx-public
+    kubernetes.io/ingress.class: nginx-public
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: 'true'
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  tls:
+    - hosts:
+        - emails-taua-ms.omnilogic.ai
+      secretName: tls-travel-emails-microservice-api-secret
+  rules:
+    - host: emails-taua-ms.omnilogic.ai
+      http:
+        paths:
+          - backend:
+              service:
+                name: travel-emails-microservice-api
+                port:
+                  number: 80
+            path: /(|$)(.*)
+            pathType: ImplementationSpecific

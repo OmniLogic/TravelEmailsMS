@@ -1,7 +1,7 @@
 package ai.omnilogic.travel.emails.services;
 
 import ai.omnilogic.travel.emails.models.log.LogEmail;
-import ai.omnilogic.travel.emails.models.log.Mail;
+import ai.omnilogic.travel.emails.models.mail.Mail;
 import ai.omnilogic.travel.emails.repositories.LogEmailRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

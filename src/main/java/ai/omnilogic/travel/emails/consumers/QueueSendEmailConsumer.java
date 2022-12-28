@@ -2,9 +2,8 @@ package ai.omnilogic.travel.emails.consumers;
 
 import ai.omnilogic.travel.emails.exceptions.SendEmailException;
 import ai.omnilogic.travel.emails.models.MessageStatus;
-import ai.omnilogic.travel.emails.models.log.Mail;
+import ai.omnilogic.travel.emails.models.mail.Mail;
 import ai.omnilogic.travel.emails.services.MandrillService;
-import br.com.omnilogic.javautils.utils.Serializer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -40,7 +39,7 @@ public class QueueSendEmailConsumer {
         }
         Mail mail = null;
         try {
-            mail = Serializer.fromJson(split[1], Mail.class);
+            mail = new ObjectMapper().readValue(split[1], Mail.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
